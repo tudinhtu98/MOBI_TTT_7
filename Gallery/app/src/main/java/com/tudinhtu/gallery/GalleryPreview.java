@@ -24,6 +24,7 @@ public class GalleryPreview extends AppCompatActivity {
     Button btnBack;
     String path;
     int position;
+    int i=0;
     static ArrayList<HashMap<String, String>> list = new ArrayList<HashMap<String, String>>();
     GestureDetector gestureDetector;
     final int SWIPE_THRESHOLD = 200;
@@ -48,6 +49,16 @@ public class GalleryPreview extends AppCompatActivity {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
                 gestureDetector.onTouchEvent(event);
+                if(i==0)
+                {
+                    getSupportActionBar().hide();
+                    i=1;
+                }
+                else if(i==1)
+                {
+                    getSupportActionBar().show();
+                    i=0;
+                }
                 return false;
             }
         });

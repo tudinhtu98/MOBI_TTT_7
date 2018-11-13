@@ -32,8 +32,7 @@
             android:id="@+id/imageTarget"
             android:layout_width="400dp"
             android:layout_height="wrap_content"
-            android:layout_weight="1"
-            app:srcCompat="@drawable/blank" />
+            android:layout_weight="1" />
 
         <LinearLayout
             android:layout_width="match_parent"

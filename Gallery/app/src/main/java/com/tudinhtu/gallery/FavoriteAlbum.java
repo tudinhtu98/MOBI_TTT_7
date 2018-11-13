@@ -1,4 +1,4 @@
-package com.androstock.galleryapp;
+package com.tudinhtu.gallery;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -158,8 +158,8 @@ public  class FavoriteAlbum extends AppCompatActivity {
         else if(resultCode==RESULT_FIRST_USER)
         {
 
-          String a=data.getStringExtra("image");
-           targetUri=Uri.parse(a);
+            String a=data.getStringExtra("image");
+            targetUri=Uri.parse(a);
             isCreateNewAlbum=1;
             uriToBitmap(targetUri);
             twName.setText(data.getStringExtra("name"));
@@ -221,3 +221,4 @@ public  class FavoriteAlbum extends AppCompatActivity {
         return targetUri;
     }*/
 }
+

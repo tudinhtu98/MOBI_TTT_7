@@ -1,4 +1,4 @@
-package com.androstock.galleryapp;
+package com.tudinhtu.gallery;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -48,7 +48,7 @@ public class PrewPhoto extends FavoriteAlbum {
             public void onClick(View view) {
                 //imbCamera.setVisibility(View.INVISIBLE);
                 takeScreenshot();
-               // imbCamera.setVisibility(View.VISIBLE);
+                // imbCamera.setVisibility(View.VISIBLE);
             }
         });
     }

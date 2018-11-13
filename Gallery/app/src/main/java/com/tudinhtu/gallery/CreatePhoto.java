@@ -1,4 +1,4 @@
-package com.androstock.galleryapp;
+package com.tudinhtu.gallery;
 
 import android.app.Activity;
 import android.content.Intent;
