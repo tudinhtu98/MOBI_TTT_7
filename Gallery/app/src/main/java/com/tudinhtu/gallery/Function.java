@@ -1,4 +1,4 @@
-package com.androstock.galleryapp;
+package com.tudinhtu.gallery;
 
 import android.content.Context;
 import android.content.pm.PackageManager;

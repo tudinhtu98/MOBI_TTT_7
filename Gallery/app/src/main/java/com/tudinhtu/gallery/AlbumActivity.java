@@ -1,6 +1,5 @@
-package com.androstock.galleryapp;
+package com.tudinhtu.gallery;
 
-import android.app.ActionBar;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.res.Resources;
@@ -12,7 +11,6 @@ import android.os.Bundle;
 import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
 import android.util.DisplayMetrics;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -20,10 +18,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
-import android.widget.Button;
 import android.widget.GridView;
 import android.widget.ImageView;
-import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 
@@ -41,9 +37,6 @@ public class AlbumActivity extends AppCompatActivity {
     ArrayList<HashMap<String, String>> imageList = new ArrayList<HashMap<String, String>>();
     String album_name = "";
     LoadAlbumImages loadAlbumTask;
-
-    /*ActionBar actionBar = getActionBar();*/
-  /*  actionBar.setDisplayHomeAsUpEnabled(true);*/
 
 
     @Override
@@ -134,7 +127,8 @@ public class AlbumActivity extends AppCompatActivity {
                 public void onItemClick(AdapterView<?> parent, View view,
                                         final int position, long id) {
                     Intent intent = new Intent(AlbumActivity.this, GalleryPreview.class);
-                    intent.putExtra("path", imageList.get(+position).get(Function.KEY_PATH));
+                    intent.putExtra("position", position);
+                    GalleryPreview.list = imageList;
                     startActivity(intent);
                 }
             });
@@ -146,7 +140,6 @@ public class AlbumActivity extends AppCompatActivity {
 
 class SingleAlbumAdapter extends BaseAdapter {
     private Activity activity;
-    AlbumActivity.LoadAlbumImages loadAlbumTask;
     private ArrayList<HashMap< String, String >> data;
     public SingleAlbumAdapter(Activity a, ArrayList < HashMap < String, String >> d) {
         activity = a;
@@ -174,9 +167,7 @@ class SingleAlbumAdapter extends BaseAdapter {
             convertView.setTag(holder);
         } else {
             holder = (SingleAlbumViewHolder) convertView.getTag();
-
         }
-
         holder.galleryImage.setId(position);
 
         HashMap < String, String > song = new HashMap < String, String > ();

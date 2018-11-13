@@ -1,7 +1,9 @@
-package com.androstock.galleryapp;
+package com.tudinhtu.gallery;
+
 
 import android.Manifest;
 import android.app.Activity;
+
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.res.Resources;
@@ -14,13 +16,11 @@ import android.provider.MediaStore;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.util.DisplayMetrics;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
-import android.widget.Button;
 import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -38,25 +38,14 @@ public class MainActivity extends AppCompatActivity {
     static final int REQUEST_PERMISSION_KEY = 1;
     LoadAlbum loadAlbumTask;
     GridView galleryGridView;
-    Button btnNewAlbum;
-    String uri="";
     ArrayList<HashMap<String, String>> albumList = new ArrayList<HashMap<String, String>>();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-         galleryGridView = (GridView) findViewById(R.id.galleryGridView);
-         btnNewAlbum= (Button) findViewById(R.id.newAlbum);
-        btnNewAlbum.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(MainActivity.this, FavoriteAlbum.class);
-                intent.putExtra("link",uri);
-                startActivity(intent);
-                /*startActivityForResult(intent,0);*/
-            }
-        });
+        galleryGridView = (GridView) findViewById(R.id.galleryGridView);
+
         int iDisplayWidth = getResources().getDisplayMetrics().widthPixels ;
         Resources resources = getApplicationContext().getResources();
         DisplayMetrics metrics = resources.getDisplayMetrics();
@@ -75,21 +64,8 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        if(resultCode==RESULT_OK)
-        {
-            uri=data.getData().toString();
 
-        }
-        else if(resultCode==RESULT_CANCELED)
-        {
-            uri=data.getStringExtra("link");
-        }
-        //Log.d("toast7",data.getData().toString());
 
-    }
 
     class LoadAlbum extends AsyncTask<String, Void, String> {
         @Override
