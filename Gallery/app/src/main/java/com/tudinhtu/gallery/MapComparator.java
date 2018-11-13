@@ -1,4 +1,4 @@
-package com.tudinhtu.gallery;
+package com.androstock.galleryapp;
 
 /**
  * Created by SHAJIB on 7/16/2017.
