@@ -21,18 +21,17 @@ import java.util.HashMap;
 public class GalleryPreview extends AppCompatActivity {
 
     ImageView GalleryPreviewImg;
-    Button btnBack;
     String path;
     int position;
-    int i=0;
     static ArrayList<HashMap<String, String>> list = new ArrayList<HashMap<String, String>>();
     GestureDetector gestureDetector;
-    final int SWIPE_THRESHOLD = 200;
-    final int SWIPE_VELOCITY = 200;
+    final int SWIPE_THRESHOLD = 400;
+    final int SWIPE_VELOCITY = 400;
+    final int SWIPE_THRESHOLD_VER = 600;
+    final int SWIPE_VELOCITY_VER = 600;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        //getSupportActionBar().hide();
         setContentView(R.layout.gallery_preview);
         Intent intent = getIntent();
         position = intent.getIntExtra("position", 1);
@@ -49,20 +48,9 @@ public class GalleryPreview extends AppCompatActivity {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
                 gestureDetector.onTouchEvent(event);
-                if(i==0)
-                {
-                    getSupportActionBar().hide();
-                    i=1;
-                }
-                else if(i==1)
-                {
-                    getSupportActionBar().show();
-                    i=0;
-                }
                 return false;
             }
         });
-
     }
 
     class MyGesture extends GestureDetector.SimpleOnGestureListener{
@@ -86,12 +74,12 @@ public class GalleryPreview extends AppCompatActivity {
                         .into(GalleryPreviewImg);
             }
             //Kéo từ trên xuống dưới
-            if(e2.getY() - e1.getY() > SWIPE_THRESHOLD  && Math.abs(velocityY) > SWIPE_VELOCITY){
+            if(e2.getY() - e1.getY() > SWIPE_THRESHOLD_VER  && Math.abs(velocityY) > SWIPE_VELOCITY_VER){
                 list = null; //Giải phóng dung lượng của biến
                 finish();
             }
             //Kéo từ dưới lên trên
-            if(e1.getY() - e2.getY() > SWIPE_THRESHOLD  && Math.abs(velocityY) > SWIPE_VELOCITY){
+            if(e1.getY() - e2.getY() > SWIPE_THRESHOLD_VER  && Math.abs(velocityY) > SWIPE_VELOCITY_VER){
                 list = null; //Giải phóng dung lượng của biến
                 finish();
             }
