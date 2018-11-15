@@ -12,22 +12,40 @@
         android:id="@+id/relative_container"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
+
         <com.jsibbold.zoomage.ZoomageView
             android:id="@+id/GalleryPreviewImg"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_centerInParent="true"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_gravity="center"
+            android:layout_marginStart="0dp"
+            android:layout_marginTop="0dp"
+            android:layout_marginBottom="0dp"
             android:src="@null"
-            app:zoomage_restrictBounds="false"
             app:zoomage_animateOnReset="true"
-            app:zoomage_autoResetMode="UNDER"
             app:zoomage_autoCenter="true"
-            app:zoomage_zoomable="true"
-            app:zoomage_translatable="true"
-            app:zoomage_minScale="0.6"
+            app:zoomage_autoResetMode="UNDER"
             app:zoomage_maxScale="8"
-            />
+            app:zoomage_minScale="0.6"
+            app:zoomage_restrictBounds="false"
+            app:zoomage_translatable="true"
+            app:zoomage_zoomable="true" />
 
+        <Button
+            android:id="@+id/detail_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentBottom="true"
+            android:layout_gravity="center"
+            android:layout_marginStart="240dp"
+            android:layout_marginEnd="32dp"
+            android:layout_marginBottom="32dp"
+            android:onClick="onClickDetails"
+            android:text="@string/details" />
 
     </RelativeLayout>
 </LinearLayout>

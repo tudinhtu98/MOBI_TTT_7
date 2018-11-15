@@ -8,8 +8,13 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.Toast;
+import android.media.ExifInterface;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.annotation.GlideModule;
+import com.bumptech.glide.module.AppGlideModule;
+import com.bumptech.glide.request.RequestOptions;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -22,6 +27,8 @@ public class GalleryPreview extends AppCompatActivity {
 
     ImageView GalleryPreviewImg;
     String path;
+    String imageName;
+    String[] namePart;
     int position;
     static ArrayList<HashMap<String, String>> list = new ArrayList<HashMap<String, String>>();
     GestureDetector gestureDetector;
@@ -37,7 +44,8 @@ public class GalleryPreview extends AppCompatActivity {
         position = intent.getIntExtra("position", 1);
         path = list.get(position).get(Function.KEY_PATH);
         GalleryPreviewImg = (ImageView) findViewById(R.id.GalleryPreviewImg);
-        setTitle("Ảnh " + (position + 1));
+        getImageName();
+        setTitle(imageName);
 
         Glide.with(GalleryPreview.this)
                 .load(new File(path)) // Uri of the picture
@@ -53,24 +61,43 @@ public class GalleryPreview extends AppCompatActivity {
         });
     }
 
+    public void onClickDetails(View view) {
+        CharSequence details = "Name: " + imageName + "\nPath: " + path;
+        int duration = Toast.LENGTH_SHORT;
+        Toast.makeText(GalleryPreview.this, details, duration).show();
+    }
+    public void getImageName() {
+        path = list.get(position).get(Function.KEY_PATH);
+        namePart = path.split("/");
+        imageName = namePart[namePart.length - 1];
+    }
+
+    public class ExifInterface extends GalleryPreview {
+
+    }
+
     class MyGesture extends GestureDetector.SimpleOnGestureListener{
         @Override
         public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX, float velocityY) {
             //Kéo từ trái sang phải
-            if(e2.getX() - e1.getX() > SWIPE_THRESHOLD  && Math.abs(velocityX) > SWIPE_VELOCITY && 0 < position ){
+            if(e2.getX() - e1.getX() > SWIPE_THRESHOLD*0.7  && Math.abs(velocityX) > SWIPE_VELOCITY && 0 < position ){
                 position--;
-                setTitle("Ảnh " + (position + 1));
+                getImageName();
+                setTitle(imageName);
                 Glide.with(GalleryPreview.this)
-                        .load(new File(list.get(position).get(Function.KEY_PATH))) // Uri of the picture
+                        .load(new File(list.get(position).get(Function.KEY_PATH)))
+                        .apply(new RequestOptions().fitCenter())
                         .into(GalleryPreviewImg);
             }
             //Kéo từ phải sang trái
-            if(e1.getX() - e2.getX() > SWIPE_THRESHOLD  && Math.abs(velocityX) > SWIPE_VELOCITY && position < list.size() - 1){
+            if(e1.getX() - e2.getX() > SWIPE_THRESHOLD*0.7  && Math.abs(velocityX) > SWIPE_VELOCITY && position < list.size() - 1){
                 //Next hình tiếp theo
                 position++;
-                setTitle("Ảnh " + (position + 1));
+                getImageName();
+                setTitle(imageName);
                 Glide.with(GalleryPreview.this)
                         .load(new File(list.get(position).get(Function.KEY_PATH))) // Uri of the picture
+                        .apply(new RequestOptions().fitCenter())
                         .into(GalleryPreviewImg);
             }
             //Kéo từ trên xuống dưới
@@ -86,4 +113,6 @@ public class GalleryPreview extends AppCompatActivity {
             return super.onFling(e1, e2, velocityX, velocityY);
         }
     }
+
+
 }
