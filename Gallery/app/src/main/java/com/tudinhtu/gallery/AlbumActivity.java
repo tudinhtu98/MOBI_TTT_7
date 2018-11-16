@@ -49,7 +49,7 @@ public class AlbumActivity extends AppCompatActivity {
         setTitle(album_name);
 
 
-        galleryGridView = (GridView) findViewById(R.id.galleryGridView);
+        galleryGridView = findViewById(R.id.galleryGridView);
         int iDisplayWidth = getResources().getDisplayMetrics().widthPixels ;
         Resources resources = getApplicationContext().getResources();
         DisplayMetrics metrics = resources.getDisplayMetrics();
@@ -93,9 +93,9 @@ public class AlbumActivity extends AppCompatActivity {
         protected String doInBackground(String... args) {
             String xml = "";
 
-            String path = null;
-            String album = null;
-            String timestamp = null;
+            String path;
+            String album;
+            String timestamp;
             Uri uriExternal = android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI;
             Uri uriInternal = android.provider.MediaStore.Images.Media.INTERNAL_CONTENT_URI;
 
@@ -156,13 +156,13 @@ class SingleAlbumAdapter extends BaseAdapter {
     }
 
     public View getView(int position, View convertView, ViewGroup parent) {
-        SingleAlbumViewHolder holder = null;
+        SingleAlbumViewHolder holder;
         if (convertView == null) {
             holder = new SingleAlbumViewHolder();
             convertView = LayoutInflater.from(activity).inflate(
                     R.layout.single_album_row, parent, false);
 
-            holder.galleryImage = (ImageView) convertView.findViewById(R.id.galleryImage);
+            holder.galleryImage = convertView.findViewById(R.id.galleryImage);
 
             convertView.setTag(holder);
         } else {
@@ -170,7 +170,7 @@ class SingleAlbumAdapter extends BaseAdapter {
         }
         holder.galleryImage.setId(position);
 
-        HashMap < String, String > song = new HashMap < String, String > ();
+        HashMap < String, String > song ;
         song = data.get(position);
         try {
 

@@ -18,6 +18,7 @@ import com.bumptech.glide.request.RequestOptions;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 
 /**
@@ -26,10 +27,11 @@ import java.util.HashMap;
 public class GalleryPreview extends AppCompatActivity {
 
     ImageView GalleryPreviewImg;
-    String path;
-    String imageName;
+    String path, pathInDetails;
+    String imageName, lastModDate, fileSize;
     String[] namePart;
     int position;
+    long space;
     static ArrayList<HashMap<String, String>> list = new ArrayList<HashMap<String, String>>();
     GestureDetector gestureDetector;
     final int SWIPE_THRESHOLD = 400;
@@ -44,7 +46,7 @@ public class GalleryPreview extends AppCompatActivity {
         position = intent.getIntExtra("position", 1);
         path = list.get(position).get(Function.KEY_PATH);
         GalleryPreviewImg = (ImageView) findViewById(R.id.GalleryPreviewImg);
-        getImageName();
+        updateImageInfo();
         setTitle(imageName);
 
         Glide.with(GalleryPreview.this)
@@ -62,14 +64,30 @@ public class GalleryPreview extends AppCompatActivity {
     }
 
     public void onClickDetails(View view) {
-        CharSequence details = "Name: " + imageName + "\nPath: " + path;
+        CharSequence details = "Name: " + imageName + "\nPath: " + pathInDetails
+                                + "\nDate modified: " + lastModDate + "\nSize: " + space + " KB";
         int duration = Toast.LENGTH_SHORT;
         Toast.makeText(GalleryPreview.this, details, duration).show();
     }
-    public void getImageName() {
+    public void updateImageInfo() {
         path = list.get(position).get(Function.KEY_PATH);
+        pathInDetails = "";
         namePart = path.split("/");
+        for (int i = 1; i < namePart.length-1; i++) {
+            pathInDetails += "/" + namePart[i];
+        }
         imageName = namePart[namePart.length - 1];
+
+        File image = new File(path);
+        String date;
+        String[] dateModParts;
+        if (image.exists()) {
+            Date lastModified = new Date(image.lastModified());
+            date = lastModified.toString();
+            dateModParts = date.split(" ");
+            lastModDate = dateModParts[2] + " " + dateModParts[1] + " " + dateModParts[5] + " " + dateModParts[3];
+            space = image.length() / 1000;
+        }
     }
 
     public class ExifInterface extends GalleryPreview {
@@ -82,7 +100,7 @@ public class GalleryPreview extends AppCompatActivity {
             //Kéo từ trái sang phải
             if(e2.getX() - e1.getX() > SWIPE_THRESHOLD*0.7  && Math.abs(velocityX) > SWIPE_VELOCITY && 0 < position ){
                 position--;
-                getImageName();
+                updateImageInfo();
                 setTitle(imageName);
                 Glide.with(GalleryPreview.this)
                         .load(new File(list.get(position).get(Function.KEY_PATH)))
@@ -93,7 +111,7 @@ public class GalleryPreview extends AppCompatActivity {
             if(e1.getX() - e2.getX() > SWIPE_THRESHOLD*0.7  && Math.abs(velocityX) > SWIPE_VELOCITY && position < list.size() - 1){
                 //Next hình tiếp theo
                 position++;
-                getImageName();
+                updateImageInfo();
                 setTitle(imageName);
                 Glide.with(GalleryPreview.this)
                         .load(new File(list.get(position).get(Function.KEY_PATH))) // Uri of the picture
