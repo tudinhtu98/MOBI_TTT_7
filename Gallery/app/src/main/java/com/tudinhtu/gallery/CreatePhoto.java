@@ -125,6 +125,7 @@ public  class CreatePhoto extends FavoriteAlbum {
             Toast.makeText(CreatePhoto.this, "Vui lòng chọn ảnh", Toast.LENGTH_SHORT).show();
         }
     }
+    @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case android.R.id.home:

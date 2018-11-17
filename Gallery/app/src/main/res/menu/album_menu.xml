@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/slideShow"
+        android:icon="@android:drawable/ic_menu_slideshow"
+        app:actionProviderClass="android.support.v7.app.MediaRouteActionProvider"
+        app:showAsAction="always"
+        tools:icon="@android:drawable/ic_menu_slideshow" />
+    <item
+        android:id="@+id/Xoa_menu_album"
+        android:title="Xóa" />
+</menu>

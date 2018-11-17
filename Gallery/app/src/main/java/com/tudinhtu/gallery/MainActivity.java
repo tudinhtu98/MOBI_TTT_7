@@ -17,6 +17,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
@@ -38,8 +40,8 @@ public class MainActivity extends AppCompatActivity {
 
     static final int REQUEST_PERMISSION_KEY = 1;
     LoadAlbum loadAlbumTask;
+
     GridView galleryGridView;
-    Button btnNewAlbum;
     String uri="";
     ArrayList<HashMap<String, String>> albumList = new ArrayList<HashMap<String, String>>();
     @Override
@@ -48,16 +50,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         galleryGridView = (GridView) findViewById(R.id.galleryGridView);
-        btnNewAlbum= (Button) findViewById(R.id.newAlbum);
-        btnNewAlbum.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(MainActivity.this, FavoriteAlbum.class);
-                intent.putExtra("link",uri);
-                startActivity(intent);
-                /*startActivityForResult(intent,0);*/
-            }
-        });
+
         int iDisplayWidth = getResources().getDisplayMetrics().widthPixels ;
         Resources resources = getApplicationContext().getResources();
         DisplayMetrics metrics = resources.getDisplayMetrics();
@@ -79,19 +72,37 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if(resultCode==RESULT_OK)
-        {
-            uri=data.getData().toString();
-
+        String[] PERMISSIONS = {Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE};
+        if(!Function.hasPermissions(this, PERMISSIONS)){
+            ActivityCompat.requestPermissions(this, PERMISSIONS, REQUEST_PERMISSION_KEY);
+        }else{
+            loadAlbumTask = new LoadAlbum();
+            loadAlbumTask.execute();
         }
-        else if(resultCode==RESULT_CANCELED)
-        {
-            uri=data.getStringExtra("link");
-        }
-        //Log.d("toast7",data.getData().toString());
 
     }
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
 
+            case android.R.id.home:
+                finish();
+                return true;
+            case R.id.Add:
+            {
+                Intent intent = new Intent(MainActivity.this, FavoriteAlbum.class);
+                startActivityForResult(intent,0);
+            }
+
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
+
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.main_menu, menu);
+        return true;
+    }
     class LoadAlbum extends AsyncTask<String, Void, String> {
         @Override
         protected void onPreExecute() {

@@ -16,9 +16,6 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
 
-/**
- * Created by SHAJIB on 7/16/2017.
- */
 
 public class Function {
 

@@ -41,22 +41,16 @@ import java.util.HashMap;
 public  class FavoriteAlbum extends AppCompatActivity {
     String album_name = "Favorite Album";
     Button btnAdd,btnChange,btnSee;
-    GridView galleryFavoriteGridView;
-    String prefnames="my_data";
     ImageView targetImage;
     TextView twName,twStatus;
     Intent dataResult=new Intent();
     int isCreateNewAlbum=0;
     int i=0;
-    ArrayList<HashMap<String, String>> imageFavoriteList = new ArrayList<HashMap<String, String>>();
     Uri targetUri;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.favorite_album);
-       /* Intent intent = getIntent();
-        String a= intent.getStringExtra("link");
-        targetUri = Uri.parse(a);*/
         setTitle(album_name);
         btnAdd= (Button) findViewById(R.id.addPhoto);
         twName=(TextView)findViewById(R.id.twName) ;
@@ -171,17 +165,10 @@ public  class FavoriteAlbum extends AppCompatActivity {
         }
 
     }
+    @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case android.R.id.home:
-               /* if(i==1)
-                // Truyền data vào intent
-                setResult(Activity.RESULT_OK, dataResult);
-                else
-                {
-                    setResult(Activity.RESULT_CANCELED, dataResult);
-                }
-                Log.d("toast2","1");*/
                 finish();
                 return true;
         }

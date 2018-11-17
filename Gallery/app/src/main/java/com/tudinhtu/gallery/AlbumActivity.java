@@ -28,9 +28,6 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 
-/**
- * Created by SHAJIB on 7/16/2017.
- */
 
 public class AlbumActivity extends AppCompatActivity {
     GridView galleryGridView;
@@ -71,15 +68,26 @@ public class AlbumActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
+
             case android.R.id.home:
                 finish();
                 return true;
+            case R.id.slideShow:
+            {
+                Intent intent = new Intent(AlbumActivity.this, GalleryPreview.class);
+                intent.putExtra("position", 0);
+                intent.putExtra("choose", "1");
+                GalleryPreview.list = imageList;
+                startActivity(intent);
+            }
+                
         }
 
         return super.onOptionsItemSelected(item);
     }
 
     public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.album_menu, menu);
         return true;
     }
 
@@ -128,6 +136,7 @@ public class AlbumActivity extends AppCompatActivity {
                                         final int position, long id) {
                     Intent intent = new Intent(AlbumActivity.this, GalleryPreview.class);
                     intent.putExtra("position", position);
+                    intent.putExtra("choose", "0");
                     GalleryPreview.list = imageList;
                     startActivity(intent);
                 }

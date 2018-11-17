@@ -33,7 +33,7 @@
             android:configChanges="orientation|screenSize">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".MainActivity" />
+                android:value=".AlbumActivity" />
 
         </activity>
         <activity android:name=".FavoriteAlbum"
@@ -48,14 +48,14 @@
             android:configChanges="orientation|screenSize">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".MainActivity" />
+                android:value=".FavoriteAlbum" />
         </activity>
         <activity android:name=".PrewPhoto"
 
             android:configChanges="orientation|screenSize">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".MainActivity" />
+                android:value=".FavoriteAlbum" />
         </activity>
     </application>
 

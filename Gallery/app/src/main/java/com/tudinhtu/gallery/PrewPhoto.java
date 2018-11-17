@@ -10,6 +10,8 @@ import android.os.ParcelFileDescriptor;
 import android.provider.MediaStore;
 import android.support.annotation.Nullable;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -39,16 +41,16 @@ public class PrewPhoto extends FavoriteAlbum {
         tvName.setText(intent.getStringExtra("name"));
         tvStatus.setText(intent.getStringExtra("status"));
         String a=intent.getStringExtra("image");
-        Log.d("toast13",a);
+
         targetUri= Uri.parse(a);
         uriToBitmap(targetUri);
         imbCamera=(ImageButton) findViewById(R.id.imageButton3);
         imbCamera.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                //imbCamera.setVisibility(View.INVISIBLE);
-                takeScreenshot();
-                // imbCamera.setVisibility(View.VISIBLE);
+               imbCamera.setVisibility(View.INVISIBLE);
+               takeScreenshot();
+               imbCamera.setVisibility(View.VISIBLE);
             }
         });
     }
@@ -84,10 +86,14 @@ public class PrewPhoto extends FavoriteAlbum {
 
             FileOutputStream outputStream = new FileOutputStream(imageFile);
             int quality = 100;
+            imageFile.setReadable(true,false);
+
+            imageFile.setWritable(true,false);
             bitmap.compress(Bitmap.CompressFormat.JPEG, quality, outputStream);
             outputStream.flush();
             outputStream.close();
-
+            MediaStore.Images.Media.insertImage(getContentResolver(),imageFile.getAbsolutePath(),imageFile.getName(),imageFile.getName());
+            Log.d("toast14","1");
             openScreenshot(imageFile);
         } catch (Throwable e) {
             // Several error may come out with file handling or DOM
@@ -96,8 +102,7 @@ public class PrewPhoto extends FavoriteAlbum {
 
     }
     private void openScreenshot(File imageFile) {
-       /* Intent intent = new Intent();
-        intent.setAction(Intent.ACTION_VIEW);*/
+
         Uri uri = Uri.fromFile(imageFile);
         uriToBitmap(uri);
         Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
@@ -107,8 +112,23 @@ public class PrewPhoto extends FavoriteAlbum {
         {
             startActivityForResult(intent, PICTURE_RESULT);
         }
-       /* Log.d("toast13","1");
         intent.setDataAndType(uri, "image/*");
-        startActivity(intent);*/
+        startActivity(intent);
+
+    }
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+
+            case android.R.id.home:
+                finish();
+                return true;
+
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
+    public boolean onCreateOptionsMenu(Menu menu) {
+        return true;
     }
 }

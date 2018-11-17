@@ -33,19 +33,5 @@
             app:zoomage_translatable="true"
             app:zoomage_zoomable="true" />
 
-        <Button
-            android:id="@+id/detail_button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentBottom="true"
-            android:layout_gravity="center"
-            android:layout_marginStart="240dp"
-            android:layout_marginEnd="32dp"
-            android:layout_marginBottom="32dp"
-            android:onClick="onClickDetails"
-            android:text="@string/details" />
-
     </RelativeLayout>
 </LinearLayout>
