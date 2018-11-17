@@ -92,7 +92,7 @@ public class PrewPhoto extends FavoriteAlbum {
             bitmap.compress(Bitmap.CompressFormat.JPEG, quality, outputStream);
             outputStream.flush();
             outputStream.close();
-            MediaStore.Images.Media.insertImage(getContentResolver(),imageFile.getAbsolutePath(),imageFile.getName(),imageFile.getName());
+           // MediaStore.Images.Media.insertImage(getContentResolver(),imageFile.getAbsolutePath(),imageFile.getName(),imageFile.getName());
             Log.d("toast14","1");
             openScreenshot(imageFile);
         } catch (Throwable e) {
