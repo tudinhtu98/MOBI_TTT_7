@@ -37,7 +37,7 @@ import java.util.Collections;
 import java.util.HashMap;
 
 public class MainActivity extends AppCompatActivity {
-
+    static int isdateDecrease=1;
     static final int REQUEST_PERMISSION_KEY = 1;
     LoadAlbum loadAlbumTask;
 
@@ -170,8 +170,8 @@ public class MainActivity extends AppCompatActivity {
             case REQUEST_PERMISSION_KEY: {
                 if (grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED)
                 {
-                    loadAlbumTask = new LoadAlbum();
-                    loadAlbumTask.execute();
+                   // loadAlbumTask = new LoadAlbum();
+                    //loadAlbumTask.execute();
                 } else
                 {
                     Toast.makeText(MainActivity.this, "You must accept permissions.", Toast.LENGTH_LONG).show();

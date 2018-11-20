@@ -4,6 +4,7 @@ import android.app.WallpaperManager;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
@@ -34,6 +35,7 @@ public class GalleryPreview extends AppCompatActivity {
     int positionShow=0;
     long space;
     static ArrayList<HashMap<String, String>> list = new ArrayList<HashMap<String, String>>();
+    ArrayList<HashMap<String, String>> datelist = new ArrayList<HashMap<String, String>>();
     GestureDetector gestureDetector;
     final int SWIPE_THRESHOLD = 200;
     final int SWIPE_VELOCITY = 250;
@@ -44,6 +46,7 @@ public class GalleryPreview extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.gallery_preview);
+
         Intent intent = getIntent();
         position = intent.getIntExtra("position", 1);
         String choose = intent.getStringExtra("choose");
@@ -53,6 +56,8 @@ public class GalleryPreview extends AppCompatActivity {
             Log.d("toast14",choose);
             myBackgroundThread.start();
         }
+
+
         path = list.get(position).get(Function.KEY_PATH);
         GalleryPreviewImg = (ImageView) findViewById(R.id.GalleryPreviewImg);
         updateImageInfo(position);
@@ -135,11 +140,22 @@ public class GalleryPreview extends AppCompatActivity {
                 deleteImage();
                 break;
             }
+            case R.id.crop_menu:
+            {
+                cropImage();
+                break;
+            }
 
         }
 
         return super.onOptionsItemSelected(item);
     }
+
+    public void cropImage() {
+
+
+    }
+
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.gallery_menu, menu);
         return true;
@@ -162,17 +178,25 @@ public class GalleryPreview extends AppCompatActivity {
     }
 
     public void deleteImage() {
-        File image = new File(path);
-        if (image.exists()){
-            if (image.delete()){
+        File file = new File(path);
+        file.delete();
+
+        sendBroadcast(new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE, Uri.fromFile(new File(path))));
+       /* ContentResolver contentResolver = getContentResolver();
+        contentResolver.delete(MediaStore.Images.Media.EXTERNAL_CONTENT_URI,
+                MediaStore.Images.ImageColumns.DATA + "=?" , new String[]{ path });*/
+        list.remove(position);
+        if (file.exists()){
+            if (file.delete()){
                 Toast.makeText(GalleryPreview.this, "Deleted!", Toast.LENGTH_SHORT).show();
             }
             else {
                 Toast.makeText(GalleryPreview.this, "This image not deleted.", Toast.LENGTH_SHORT).show();
             }
         }
+        AlbumActivity.posDelete=position;
 
-        list = null;
+        AlbumActivity.isdelete=1;
         finish();
     }
 

@@ -20,10 +20,13 @@ import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.GridView;
 import android.widget.ImageView;
+import android.widget.Spinner;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 
 import java.io.File;
+import java.io.FileOutputStream;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -31,7 +34,12 @@ import java.util.HashMap;
 
 public class AlbumActivity extends AppCompatActivity {
     GridView galleryGridView;
+    Spinner spnDate;
     ArrayList<HashMap<String, String>> imageList = new ArrayList<HashMap<String, String>>();
+    static  ArrayList<HashMap<String, String>> dateList = new ArrayList<HashMap<String, String>>();
+    static int isdelete =0;
+    static int posDelete =0;
+
     String album_name = "";
     LoadAlbumImages loadAlbumTask;
 
@@ -63,8 +71,38 @@ public class AlbumActivity extends AppCompatActivity {
         loadAlbumTask = new LoadAlbumImages();
         loadAlbumTask.execute();
 
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        if(isdelete==0) {
+
+        }else if(isdelete==1) {
+            Toast.makeText(AlbumActivity.this, "Deleted!", Toast.LENGTH_SHORT).show();
+            imageList = GalleryPreview.list;
+            LoadToMemory();
+            SingleAlbumAdapter adapter = new SingleAlbumAdapter(AlbumActivity.this, imageList);
+
+            galleryGridView.setAdapter(adapter);
+            isdelete=0;
+        }
+    }
+
+    public void LoadToMemory() {
+        try{
+            File file=getCacheDir();
+            FileOutputStream out=new FileOutputStream(file);
+
+        }catch (Throwable e) {
+            // Several error may come out with file handling or DOM
+            e.printStackTrace();
+        }
+
+
 
     }
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
@@ -79,8 +117,25 @@ public class AlbumActivity extends AppCompatActivity {
                 intent.putExtra("choose", "1");
                 GalleryPreview.list = imageList;
                 startActivity(intent);
+                break;
             }
-                
+            case R.id.decending:
+            {
+
+                MainActivity.isdateDecrease=1;
+                loadAlbumTask = new LoadAlbumImages();
+                loadAlbumTask.execute();
+                break;
+
+            }
+            case  R.id.timeIncreasing :
+            {
+                MainActivity.isdateDecrease=0;
+                loadAlbumTask = new LoadAlbumImages();
+                loadAlbumTask.execute();
+                break;
+            }
+
         }
 
         return super.onOptionsItemSelected(item);
@@ -122,7 +177,11 @@ public class AlbumActivity extends AppCompatActivity {
                 imageList.add(Function.mappingInbox(album, path, timestamp, Function.converToTime(timestamp), null));
             }
             cursor.close();
-            Collections.sort(imageList, new MapComparator(Function.KEY_TIMESTAMP, "dsc")); // Arranging photo album by timestamp decending
+
+            if(MainActivity.isdateDecrease==0)
+                Collections.sort(imageList, new MapComparator(Function.KEY_TIMESTAMP, "asc"));
+            if(MainActivity.isdateDecrease==1)
+                Collections.sort(imageList, new MapComparator(Function.KEY_TIMESTAMP, "dsc")); // Arranging photo album by timestamp decending
             return xml;
         }
 
@@ -150,10 +209,13 @@ public class AlbumActivity extends AppCompatActivity {
 class SingleAlbumAdapter extends BaseAdapter {
     private Activity activity;
     private ArrayList<HashMap< String, String >> data;
+
+
     public SingleAlbumAdapter(Activity a, ArrayList < HashMap < String, String >> d) {
         activity = a;
         data = d;
     }
+
     public int getCount() {
         return data.size();
     }
@@ -197,3 +259,4 @@ class SingleAlbumAdapter extends BaseAdapter {
 class SingleAlbumViewHolder {
     ImageView galleryImage;
 }
+

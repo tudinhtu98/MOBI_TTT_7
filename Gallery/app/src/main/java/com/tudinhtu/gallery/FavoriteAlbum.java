@@ -39,7 +39,7 @@ import java.util.Collections;
 import java.util.HashMap;
 
 public  class FavoriteAlbum extends AppCompatActivity {
-    String album_name = "Favorite Album";
+    String album_name = "Special Photo";
     Button btnAdd,btnChange,btnSee;
     ImageView targetImage;
     TextView twName,twStatus;

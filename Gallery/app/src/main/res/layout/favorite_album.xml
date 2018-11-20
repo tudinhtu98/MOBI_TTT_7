@@ -54,9 +54,8 @@
             android:layout_alignParentTop="true"
             android:layout_marginStart="16dp"
             android:layout_marginTop="26dp"
-            android:text="My Favorite Album"
-            android:textSize="22sp"
-            tools:text="My Favorite Album: " />
+            android:text="My Special Photo"
+            android:textSize="22sp" />
 
         <Button
             android:id="@+id/addPhoto"

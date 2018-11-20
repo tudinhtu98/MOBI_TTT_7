@@ -11,4 +11,7 @@
     <item
         android:id="@+id/delete_menu"
         android:title="@string/delete"/>
+    <item
+        android:id="@+id/crop_menu"
+        android:title="Crop" />
 </menu>

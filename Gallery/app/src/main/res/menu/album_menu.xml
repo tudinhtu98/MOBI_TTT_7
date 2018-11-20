@@ -13,4 +13,17 @@
     <item
         android:id="@+id/Xoa_menu_album"
         android:title="Xóa" />
+    <item
+        android:id="@+id/sort_album"
+        android:title="Sắp xếp" >
+        <menu >
+            <item
+                android:id="@+id/timeIncreasing"
+                android:title="Sắp xếp theo ngày tăng dần" />
+            <item
+                android:id="@+id/decending"
+                android:title="Sắp xếp theo ngày giảm dần" />
+
+        </menu>
+    </item>
 </menu>
