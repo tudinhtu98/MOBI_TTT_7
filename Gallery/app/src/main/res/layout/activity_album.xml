@@ -5,13 +5,6 @@
     android:orientation="vertical">
 
 
-    <Spinner
-        android:id="@+id/spinner"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:padding="5dp"
-        android:entries="@array/spinner_values" />
-
     <GridView
         android:id="@+id/galleryGridView"
         android:layout_width="match_parent"

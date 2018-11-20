@@ -8,6 +8,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.GestureDetector;
 import android.view.Menu;
@@ -162,12 +163,50 @@ public class GalleryPreview extends AppCompatActivity {
     }
 
     public void setWallpaper() {
+        DisplayMetrics displayMetrics = new DisplayMetrics();
+        getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
+        int height = displayMetrics.heightPixels;
+        int width = displayMetrics.widthPixels;
+
         WallpaperManager myWallpaperManager = WallpaperManager
                 .getInstance(this);
         Bitmap myBitmap = BitmapFactory.decodeFile(path);
+        Bitmap useThisBitmap;
+        float originalWidth = myBitmap.getWidth();
+        float originalHeight = myBitmap.getHeight();
+        if(originalHeight < originalWidth){
+            float scale;
+            int scaleWidth;
+            if(originalHeight > height){
+                scale = originalHeight*1.0f / height;
+                scaleWidth = (int) (myBitmap.getWidth() / scale);
+            }
+            else {
+                scale = height / originalHeight;
+                scaleWidth = (int) (myBitmap.getWidth() * scale);
+            }
+            useThisBitmap = Bitmap.createScaledBitmap(
+                    myBitmap, scaleWidth , height, true);
+            myBitmap.recycle();
+        } else{
+            float scale;
+            int scaleHeight;
+            if(originalWidth > width){
+                scale = originalWidth*1.0f / width;
+                scaleHeight = (int) (myBitmap.getHeight() / scale);
+            }
+            else {
+                scale = width / originalWidth;
+                scaleHeight = (int) (myBitmap.getHeight() * scale);
+            }
+            useThisBitmap = Bitmap.createScaledBitmap(
+                    myBitmap, width, scaleHeight, true);
+            myBitmap.recycle();
+        }
+
         if (myBitmap != null) {
             try {
-                myWallpaperManager.setBitmap(myBitmap);
+                myWallpaperManager.setBitmap(useThisBitmap);
                 Toast.makeText(this, "Set wallpaper successfully", Toast.LENGTH_SHORT).show();
             } catch (IOException e) {
                 Toast.makeText(this, "Failed to set Backgroundimage", Toast.LENGTH_SHORT).show();
