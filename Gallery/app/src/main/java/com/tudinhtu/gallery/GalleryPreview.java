@@ -275,7 +275,7 @@ public class GalleryPreview extends AppCompatActivity {
                 setTitle(imageName);
                 Glide.with(GalleryPreview.this)
                         .load(new File(list.get(position).get(Function.KEY_PATH)))
-                        .apply(new RequestOptions().fitCenter())
+                        .apply(new RequestOptions().fitCenter().optionalFitCenter())
                         .into(GalleryPreviewImg);
             }
             //Kéo từ phải sang trái
@@ -286,7 +286,7 @@ public class GalleryPreview extends AppCompatActivity {
                 setTitle(imageName);
                 Glide.with(GalleryPreview.this)
                         .load(new File(list.get(position).get(Function.KEY_PATH))) // Uri of the picture
-                        .apply(new RequestOptions().fitCenter())
+                        .apply(new RequestOptions().fitCenter().optionalFitCenter())
                         .into(GalleryPreviewImg);
             }
             //Kéo từ trên xuống dưới

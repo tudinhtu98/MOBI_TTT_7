@@ -37,7 +37,7 @@ import java.util.Collections;
 import java.util.HashMap;
 
 public class MainActivity extends AppCompatActivity {
-    static int isdateDecrease=1;
+
     static final int REQUEST_PERMISSION_KEY = 1;
     LoadAlbum loadAlbumTask;
 

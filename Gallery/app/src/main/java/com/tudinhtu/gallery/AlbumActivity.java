@@ -2,6 +2,7 @@ package com.tudinhtu.gallery;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.database.Cursor;
 import android.database.MergeCursor;
@@ -34,6 +35,7 @@ import java.util.HashMap;
 
 public class AlbumActivity extends AppCompatActivity {
     GridView galleryGridView;
+    int isdateDecrease;
     Spinner spnDate;
     ArrayList<HashMap<String, String>> imageList = new ArrayList<HashMap<String, String>>();
     static  ArrayList<HashMap<String, String>> dateList = new ArrayList<HashMap<String, String>>();
@@ -68,20 +70,34 @@ public class AlbumActivity extends AppCompatActivity {
         }
 
 
-        loadAlbumTask = new LoadAlbumImages();
-        loadAlbumTask.execute();
 
+
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        savingPreferences();
+    }
+
+    public void savingPreferences() {
+        SharedPreferences pre=getSharedPreferences(album_name,MODE_PRIVATE);
+        SharedPreferences.Editor editor=pre.edit();
+        editor.clear();
+        editor.putInt(album_name,isdateDecrease);
+        editor.commit();
     }
 
     @Override
     protected void onResume() {
         super.onResume();
+        restoringPreferences();
         if(isdelete==0) {
-
+            loadAlbumTask = new LoadAlbumImages();
+            loadAlbumTask.execute();
         }else if(isdelete==1) {
             Toast.makeText(AlbumActivity.this, "Deleted!", Toast.LENGTH_SHORT).show();
             imageList = GalleryPreview.list;
-            LoadToMemory();
             SingleAlbumAdapter adapter = new SingleAlbumAdapter(AlbumActivity.this, imageList);
 
             galleryGridView.setAdapter(adapter);
@@ -89,19 +105,12 @@ public class AlbumActivity extends AppCompatActivity {
         }
     }
 
-    public void LoadToMemory() {
-        try{
-            File file=getCacheDir();
-            FileOutputStream out=new FileOutputStream(file);
-
-        }catch (Throwable e) {
-            // Several error may come out with file handling or DOM
-            e.printStackTrace();
-        }
-
-
-
+    public void restoringPreferences() {
+        SharedPreferences pre=getSharedPreferences(album_name,MODE_PRIVATE);
+        isdateDecrease=pre.getInt(album_name,1);
     }
+
+
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -122,7 +131,7 @@ public class AlbumActivity extends AppCompatActivity {
             case R.id.decending:
             {
 
-                MainActivity.isdateDecrease=1;
+                isdateDecrease=1;
                 loadAlbumTask = new LoadAlbumImages();
                 loadAlbumTask.execute();
                 break;
@@ -130,7 +139,7 @@ public class AlbumActivity extends AppCompatActivity {
             }
             case  R.id.timeIncreasing :
             {
-                MainActivity.isdateDecrease=0;
+                isdateDecrease=0;
                 loadAlbumTask = new LoadAlbumImages();
                 loadAlbumTask.execute();
                 break;
@@ -178,9 +187,9 @@ public class AlbumActivity extends AppCompatActivity {
             }
             cursor.close();
 
-            if(MainActivity.isdateDecrease==0)
+            if(isdateDecrease==0)
                 Collections.sort(imageList, new MapComparator(Function.KEY_TIMESTAMP, "asc"));
-            if(MainActivity.isdateDecrease==1)
+            if(isdateDecrease==1)
                 Collections.sort(imageList, new MapComparator(Function.KEY_TIMESTAMP, "dsc")); // Arranging photo album by timestamp decending
             return xml;
         }
