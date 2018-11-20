@@ -1,6 +1,8 @@
 <resources>
     <string name="app_name">Gallery</string>
     <string name="details">Details</string>
+    <string name="delete">Delete</string>
+    <string name="setWallpaper">Set Wallpaper</string>
     <string-array name="spinner_values">
         <item>time</item>
         <item>size</item>

@@ -4,11 +4,11 @@
 
     <item
         android:id="@+id/Detail_menu"
-        android:title="Detail" />
+        android:title="@string/details" />
     <item
         android:id="@+id/SetWallpaper_menu"
-        android:title="Set Wallpaper" />
+        android:title="@string/setWallpaper" />
     <item
         android:id="@+id/delete_menu"
-        android:title="Delete"/>
+        android:title="@string/delete"/>
 </menu>
