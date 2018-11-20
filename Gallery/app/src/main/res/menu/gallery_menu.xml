@@ -3,9 +3,12 @@
     xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
-        android:id="@+id/Detal_menu"
+        android:id="@+id/Detail_menu"
         android:title="Detail" />
     <item
         android:id="@+id/SetWallpaper_menu"
         android:title="Set Wallpaper" />
+    <item
+        android:id="@+id/delete_menu"
+        android:title="Delete"/>
 </menu>

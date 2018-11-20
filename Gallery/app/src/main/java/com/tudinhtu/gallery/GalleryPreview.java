@@ -28,17 +28,17 @@ public class GalleryPreview extends AppCompatActivity {
 
     ImageView GalleryPreviewImg;
     String path, pathInDetails;
-    String imageName, lastModDate, fileSize;
+    String imageName, lastModDate;
     String[] namePart;
     int position;
     int positionShow=0;
     long space;
     static ArrayList<HashMap<String, String>> list = new ArrayList<HashMap<String, String>>();
     GestureDetector gestureDetector;
-    final int SWIPE_THRESHOLD = 400;
-    final int SWIPE_VELOCITY = 400;
-    final int SWIPE_THRESHOLD_VER = 600;
-    final int SWIPE_VELOCITY_VER = 600;
+    final int SWIPE_THRESHOLD = 200;
+    final int SWIPE_VELOCITY = 250;
+    final int SWIPE_THRESHOLD_VER = 300;
+    final int SWIPE_VELOCITY_VER = 250;
     Handler myHandler = new Handler();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -117,29 +117,23 @@ public class GalleryPreview extends AppCompatActivity {
             case android.R.id.home:
                 finish();
                 return true;
-            case R.id.Detal_menu:
+            case R.id.Detail_menu:
             {
                 CharSequence details = "Name: " + imageName + "\nPath: " + pathInDetails
                         + "\nDate modified: " + lastModDate + "\nSize: " + space + " KB";
                 int duration = Toast.LENGTH_SHORT;
                 Toast.makeText(GalleryPreview.this, details, duration).show();
+                break;
             }
             case R.id.SetWallpaper_menu:
             {
-                path = list.get(position).get(Function.KEY_PATH);
-                WallpaperManager myWallpaperManager = WallpaperManager
-                        .getInstance(this);
-                Bitmap myBitmap = BitmapFactory.decodeFile(path);
-                if (myBitmap != null) {
-                    try {
-                        myWallpaperManager.setBitmap(myBitmap);
-                        Toast.makeText(this, "Set wallpaper successfully", Toast.LENGTH_SHORT).show();
-                    } catch (IOException e) {
-                        Toast.makeText(this, "Failed to set Backgroundimage", Toast.LENGTH_SHORT).show();
-                    }
-                } else {
-                    Toast.makeText(this, "Failed to decode image.", Toast.LENGTH_SHORT).show();
-                }
+                setWallpaper();
+                break;
+            }
+            case R.id.delete_menu:
+            {
+                deleteImage();
+                break;
             }
 
         }
@@ -150,14 +144,41 @@ public class GalleryPreview extends AppCompatActivity {
         getMenuInflater().inflate(R.menu.gallery_menu, menu);
         return true;
     }
-    /* public void onClickDetails(View view) {
-         CharSequence details = "Name: " + imageName + "\nPath: " + pathInDetails
-                                 + "\nDate modified: " + lastModDate + "\nSize: " + space + " KB";
-         int duration = Toast.LENGTH_SHORT;
-         Toast.makeText(GalleryPreview.this, details, duration).show();
-     }*/
-    public void updateImageInfo(int positiontemp) {
-        path = list.get(positiontemp).get(Function.KEY_PATH);
+
+    public void setWallpaper() {
+        WallpaperManager myWallpaperManager = WallpaperManager
+                .getInstance(this);
+        Bitmap myBitmap = BitmapFactory.decodeFile(path);
+        if (myBitmap != null) {
+            try {
+                myWallpaperManager.setBitmap(myBitmap);
+                Toast.makeText(this, "Set wallpaper successfully", Toast.LENGTH_SHORT).show();
+            } catch (IOException e) {
+                Toast.makeText(this, "Failed to set Backgroundimage", Toast.LENGTH_SHORT).show();
+            }
+        } else {
+            Toast.makeText(this, "Failed to decode image.", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    public void deleteImage() {
+        File image = new File(path);
+        if (image.exists()){
+            if (image.delete()){
+                Toast.makeText(GalleryPreview.this, "Deleted!", Toast.LENGTH_SHORT).show();
+            }
+            else {
+                Toast.makeText(GalleryPreview.this, "This image not deleted.", Toast.LENGTH_SHORT).show();
+            }
+        }
+
+        list = null;
+        finish();
+    }
+
+
+    public void updateImageInfo(int positionTemp) {
+        path = list.get(positionTemp).get(Function.KEY_PATH);
         pathInDetails = "";
         namePart = path.split("/");
         for (int i = 1; i < namePart.length-1; i++) {

@@ -1,4 +1,9 @@
 <resources>
     <string name="app_name">Gallery</string>
     <string name="details">Details</string>
+    <string-array name="spinner_values">
+        <item>time</item>
+        <item>size</item>
+        <item>name</item>
+    </string-array>
 </resources>
