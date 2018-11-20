@@ -1,6 +1,9 @@
 package com.tudinhtu.gallery;
 
+import android.app.WallpaperManager;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
@@ -10,17 +13,12 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Toast;
-import android.media.ExifInterface;
-
 import com.bumptech.glide.Glide;
-import com.bumptech.glide.annotation.GlideModule;
-import com.bumptech.glide.module.AppGlideModule;
 import com.bumptech.glide.request.RequestOptions;
-
 import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -80,14 +78,14 @@ public class GalleryPreview extends AppCompatActivity {
         public void run() {
             try {
 
-                    path = list.get(positionShow).get(Function.KEY_PATH);
-                    Log.d("toast15","1");
-                    updateImageInfo(positionShow);
-                    setTitle(imageName);
-                    Glide.with(GalleryPreview.this)
-                            .load(new File(list.get(positionShow).get(Function.KEY_PATH)))
-                            .apply(new RequestOptions().fitCenter())
-                            .into(GalleryPreviewImg);
+                path = list.get(positionShow).get(Function.KEY_PATH);
+                Log.d("toast15","1");
+                updateImageInfo(positionShow);
+                setTitle(imageName);
+                Glide.with(GalleryPreview.this)
+                        .load(new File(list.get(positionShow).get(Function.KEY_PATH)))
+                        .apply(new RequestOptions().fitCenter())
+                        .into(GalleryPreviewImg);
 
             } catch (Exception e) {
                 Log.e("<<foregroundTask>>", e.getMessage());
@@ -126,6 +124,23 @@ public class GalleryPreview extends AppCompatActivity {
                 int duration = Toast.LENGTH_SHORT;
                 Toast.makeText(GalleryPreview.this, details, duration).show();
             }
+            case R.id.SetWallpaper_menu:
+            {
+                path = list.get(position).get(Function.KEY_PATH);
+                WallpaperManager myWallpaperManager = WallpaperManager
+                        .getInstance(this);
+                Bitmap myBitmap = BitmapFactory.decodeFile(path);
+                if (myBitmap != null) {
+                    try {
+                        myWallpaperManager.setBitmap(myBitmap);
+                        Toast.makeText(this, "Set wallpaper successfully", Toast.LENGTH_SHORT).show();
+                    } catch (IOException e) {
+                        Toast.makeText(this, "Failed to set Backgroundimage", Toast.LENGTH_SHORT).show();
+                    }
+                } else {
+                    Toast.makeText(this, "Failed to decode image.", Toast.LENGTH_SHORT).show();
+                }
+            }
 
         }
 
@@ -135,12 +150,12 @@ public class GalleryPreview extends AppCompatActivity {
         getMenuInflater().inflate(R.menu.gallery_menu, menu);
         return true;
     }
-   /* public void onClickDetails(View view) {
-        CharSequence details = "Name: " + imageName + "\nPath: " + pathInDetails
-                                + "\nDate modified: " + lastModDate + "\nSize: " + space + " KB";
-        int duration = Toast.LENGTH_SHORT;
-        Toast.makeText(GalleryPreview.this, details, duration).show();
-    }*/
+    /* public void onClickDetails(View view) {
+         CharSequence details = "Name: " + imageName + "\nPath: " + pathInDetails
+                                 + "\nDate modified: " + lastModDate + "\nSize: " + space + " KB";
+         int duration = Toast.LENGTH_SHORT;
+         Toast.makeText(GalleryPreview.this, details, duration).show();
+     }*/
     public void updateImageInfo(int positiontemp) {
         path = list.get(positiontemp).get(Function.KEY_PATH);
         pathInDetails = "";
