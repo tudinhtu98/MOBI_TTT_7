@@ -9,6 +9,8 @@
     <string name="sortByDateDesc">Sort by Date Descending</string>
     <string name="sortByDateAsc"> Sort by Date Ascending</string>
     <string name="sort">Sort</string>
+    <string name="share">Share</string>
+
 
     <!--in details-->
     <string name="name_i">Name: </string>

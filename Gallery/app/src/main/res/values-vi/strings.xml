@@ -9,6 +9,7 @@
     <string name="sortByDateDesc">Sắp xếp theo ngày giảm dần</string>
     <string name="sortByDateAsc">Sắp xếp theo ngày tăng dần</string>
     <string name="sort">Sắp xếp</string>
+    <string name="share">Chia sẻ</string>
 
     <!--in details-->
     <string name="name_i">Tên: </string>

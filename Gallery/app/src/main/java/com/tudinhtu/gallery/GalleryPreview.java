@@ -7,6 +7,7 @@ import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
+import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
 import android.util.DisplayMetrics;
 import android.util.Log;
@@ -19,6 +20,8 @@ import android.widget.ImageView;
 import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
+
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -44,6 +47,8 @@ public class GalleryPreview extends AppCompatActivity {
     final int SWIPE_THRESHOLD_VER = 300;
     final int SWIPE_VELOCITY_VER = 250;
     Handler myHandler = new Handler();
+    //private Bitmap mBitmap;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -152,10 +157,26 @@ public class GalleryPreview extends AppCompatActivity {
                 renameImage();
                 break;
             }
+            case R.id.share_menu:
+                shareImage();
+                break;
 
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    public void shareImage() {
+        Bitmap bitmap =BitmapFactory.decodeFile(path);
+        Intent share = new Intent(Intent.ACTION_SEND);
+        share.setType("image/jpeg");
+        ByteArrayOutputStream bytes = new ByteArrayOutputStream();
+        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, bytes);
+        String path = MediaStore.Images.Media.insertImage(getContentResolver(), bitmap, imageName, null);
+        bitmap.recycle();
+        Uri imageUri =  Uri.parse(path);
+        share.putExtra(Intent.EXTRA_STREAM, imageUri);
+        startActivity(Intent.createChooser(share, "Share this photo via..."));
     }
 
     public void renameImage() {
@@ -296,9 +317,6 @@ public class GalleryPreview extends AppCompatActivity {
         }
     }
 
-    public class ExifInterface extends GalleryPreview {
-
-    }
 
     class MyGesture extends GestureDetector.SimpleOnGestureListener{
         @Override
