@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu xmlns:app="http://schemas.android.com/apk/res-auto"
+<menu
     xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
@@ -9,9 +9,14 @@
         android:id="@+id/SetWallpaper_menu"
         android:title="@string/setWallpaper" />
     <item
-        android:id="@+id/delete_menu"
-        android:title="@string/delete"/>
+        android:id="@+id/rename_menu"
+        android:title="@string/rename"/>
     <item
         android:id="@+id/crop_menu"
-        android:title="Crop" />
+        android:title="@string/crop" />
+
+    <!-- Delete de duoi cung please -->
+    <item
+        android:id="@+id/delete_menu"
+        android:title="@string/delete" />
 </menu>

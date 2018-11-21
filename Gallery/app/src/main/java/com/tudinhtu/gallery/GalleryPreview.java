@@ -21,6 +21,7 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -146,10 +147,44 @@ public class GalleryPreview extends AppCompatActivity {
                 cropImage();
                 break;
             }
+            case R.id.rename_menu:
+            {
+                renameImage();
+                break;
+            }
 
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    public void renameImage() {
+        File originalFile = new File(path);
+        //File newName = new File(pathInDetails + "/ahihi.jpg");
+        File newName = new File("ahihi.jpg");
+        //originalFile.mkdirs();
+        //ImageIO.write(image, "jpg", originalFile);
+
+
+        if (originalFile.setWritable(true)) {
+            if (originalFile.setWritable(true, false)) {
+                boolean success = originalFile.renameTo(newName);
+                if (success) {
+                    Toast.makeText(this, "Name changed", Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(this, "Can't changes name", Toast.LENGTH_SHORT).show();
+                }
+            }
+            else {
+                Toast.makeText(this, "Can't set writable", Toast.LENGTH_SHORT).show();
+            }
+        }
+        else {
+            Toast.makeText(this, "File doesn't not exist", Toast.LENGTH_SHORT).show();
+        }
+
+        updateImageInfo(position);
+        setTitle(originalFile.getName());
     }
 
     public void cropImage() {

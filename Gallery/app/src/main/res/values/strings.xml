@@ -1,11 +1,18 @@
 <resources>
     <string name="app_name">Gallery</string>
+    <string name="add2album">Add to album</string>
     <string name="details">Details</string>
     <string name="delete">Delete</string>
-    <string name="setWallpaper">Set Wallpaper</string>
-    <string-array name="spinner_values">
-        <item>time</item>
-        <item>size</item>
-        <item>name</item>
-    </string-array>
+    <string name="setWallpaper">Set as wallpaper</string>
+    <string name="rename">Rename</string>
+    <string name="crop">Crop</string>
+    <string name="sortByDateDesc">Sort by Date Descending</string>
+    <string name="sortByDateAsc"> Sort by Date Ascending</string>
+    <string name="sort">Sort</string>
+
+    <!--in details-->
+    <string name="name_i">Name: </string>
+    <string name="path_i">Path: </string>
+    <string name="size_i">Size: </string>
+    <string name="dateMod_i">Date modified: </string>
 </resources>

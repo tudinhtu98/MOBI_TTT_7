@@ -11,18 +11,18 @@
         app:showAsAction="always"
         tools:icon="@android:drawable/ic_menu_slideshow" />
     <item
-        android:id="@+id/Xoa_menu_album"
-        android:title="Xóa" />
+        android:id="@+id/deleteAlbum_menu"
+        android:title="@string/delete" />
     <item
         android:id="@+id/sort_album"
-        android:title="Sắp xếp" >
+        android:title="@string/sort" >
         <menu >
             <item
                 android:id="@+id/timeIncreasing"
-                android:title="Sắp xếp theo ngày tăng dần" />
+                android:title="@string/sortByDateAsc" />
             <item
                 android:id="@+id/decending"
-                android:title="Sắp xếp theo ngày giảm dần" />
+                android:title="@string/sortByDateDesc" />
 
         </menu>
     </item>
