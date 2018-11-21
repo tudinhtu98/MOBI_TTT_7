@@ -1,0 +1,18 @@
+<resources>
+    <string name="app_name">Gallery</string>
+    <string name="add2album">Thêm vào album</string>
+    <string name="details">Chi tiết</string>
+    <string name="delete">Xóa</string>
+    <string name="setWallpaper">Đặt làm hình nền</string>
+    <string name="rename">Đổi tên</string>
+    <string name="crop">Cắt</string>
+    <string name="sortByDateDesc">Sắp xếp theo ngày giảm dần</string>
+    <string name="sortByDateAsc">Sắp xếp theo ngày tăng dần</string>
+    <string name="sort">Sắp xếp</string>
+
+    <!--in details-->
+    <string name="name_i">Tên: </string>
+    <string name="path_i">Đường dẫn: </string>
+    <string name="size_i">Kích thước: </string>
+    <string name="dateMod_i">Ngày chỉnh sửa: </string>
+</resources>
