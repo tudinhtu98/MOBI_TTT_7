@@ -8,6 +8,8 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.provider.MediaStore;
+import android.support.annotation.NonNull;
+import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
 import android.util.DisplayMetrics;
 import android.util.Log;
@@ -31,6 +33,7 @@ import java.util.Date;
 import java.util.HashMap;
 
 
+
 public class GalleryPreview extends AppCompatActivity {
 
     ImageView GalleryPreviewImg;
@@ -48,6 +51,7 @@ public class GalleryPreview extends AppCompatActivity {
     final int SWIPE_THRESHOLD_VER = 300;
     final int SWIPE_VELOCITY_VER = 250;
     Handler myHandler = new Handler();
+    BottomNavigationView bottomNavigationView;
     //private Bitmap mBitmap;
 
     @Override
@@ -68,6 +72,31 @@ public class GalleryPreview extends AppCompatActivity {
 
         path = list.get(position).get(Function.KEY_PATH);
         GalleryPreviewImg = (ImageView) findViewById(R.id.GalleryPreviewImg);
+        bottomNavigationView=(BottomNavigationView) findViewById(R.id.Bottombar);
+        bottomNavigationView.setOnNavigationItemSelectedListener(
+                new BottomNavigationView.OnNavigationItemSelectedListener() {
+                    @Override
+                    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                        switch (item.getItemId()) {
+                            case R.id.detail_prew:
+                                CharSequence details = "Name: " + imageName + "\nPath: " + pathInDetails
+                                        + "\nDate modified: " + lastModDate + "\nSize: " + space + " KB";
+                                int duration = Toast.LENGTH_SHORT;
+                                Toast.makeText(GalleryPreview.this, details, duration).show();
+                                break;
+                            case R.id.share_prew:
+                                shareImage();
+                                break;
+                            case R.id.delete_prew:
+                                deleteImage();
+                                break;
+                           /* case R.id.crop_prew:
+                                cropImage();
+                                break;*/
+                        }
+                        return false;
+                    }
+                });
         updateImageInfo(position);
 
 

@@ -1,17 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:design="http://schemas.android.com/tools"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#000000">
 
 
+    <android.support.design.widget.BottomNavigationView
+        android:id="@+id/Bottombar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentStart="true"
+        android:layout_gravity="bottom"
+        android:background="@android:color/background_light"
+        app:itemBackground="@color/colorPrimary"
+        app:itemIconTint="#ffffff"
+        app:itemTextColor="#ffffff"
+        app:menu="@menu/bottom_menu" />
+
+
     <RelativeLayout
         android:id="@+id/relative_container"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="460dp">
 
         <com.jsibbold.zoomage.ZoomageView
             android:id="@+id/GalleryPreviewImg"
@@ -20,9 +34,6 @@
             android:layout_alignParentStart="true"
             android:layout_alignParentTop="true"
             android:layout_gravity="center"
-            android:layout_marginStart="0dp"
-            android:layout_marginTop="0dp"
-            android:layout_marginBottom="0dp"
             android:src="@null"
             app:zoomage_animateOnReset="true"
             app:zoomage_autoCenter="true"
@@ -32,6 +43,5 @@
             app:zoomage_restrictBounds="false"
             app:zoomage_translatable="true"
             app:zoomage_zoomable="true" />
-
     </RelativeLayout>
-</LinearLayout>
+</android.support.design.widget.CoordinatorLayout>
