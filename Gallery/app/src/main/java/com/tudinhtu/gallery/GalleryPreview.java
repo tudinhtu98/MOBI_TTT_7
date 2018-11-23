@@ -208,6 +208,7 @@ public class GalleryPreview extends AppCompatActivity {
             share.setType("image/jpeg");
             share.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             share.putExtra(Intent.EXTRA_STREAM, Uri.fromFile(image));
+            bitmap.recycle();
             startActivity(Intent.createChooser(share, "Share this photo via..."));
         } catch (Exception e) {
             e.printStackTrace();
