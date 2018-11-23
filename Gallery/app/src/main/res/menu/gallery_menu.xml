@@ -4,6 +4,7 @@
 
     <item
         android:id="@+id/Detail_menu"
+        android:icon="@android:drawable/ic_menu_info_details"
         android:title="@string/details" />
     <item
         android:id="@+id/SetWallpaper_menu"
@@ -13,14 +14,17 @@
         android:title="@string/rename"/>
     <item
         android:id="@+id/crop_menu"
+        android:icon="@android:drawable/ic_menu_crop"
         android:title="@string/crop" />
     <item
         android:id="@+id/share_menu"
+        android:icon="@android:drawable/ic_menu_share"
         android:title="@string/share" />
 
 
     <!-- Delete de duoi cung please -->
     <item
         android:id="@+id/delete_menu"
+        android:icon="@android:drawable/ic_menu_delete"
         android:title="@string/delete" />
 </menu>
