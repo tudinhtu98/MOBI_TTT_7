@@ -23,6 +23,7 @@ import com.bumptech.glide.request.RequestOptions;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.util.ArrayList;
@@ -167,16 +168,21 @@ public class GalleryPreview extends AppCompatActivity {
     }
 
     public void shareImage() {
-        Bitmap bitmap =BitmapFactory.decodeFile(path);
-        Intent share = new Intent(Intent.ACTION_SEND);
-        share.setType("image/jpeg");
-        ByteArrayOutputStream bytes = new ByteArrayOutputStream();
-        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, bytes);
-        String path = MediaStore.Images.Media.insertImage(getContentResolver(), bitmap, imageName, null);
-        bitmap.recycle();
-        Uri imageUri =  Uri.parse(path);
-        share.putExtra(Intent.EXTRA_STREAM, imageUri);
-        startActivity(Intent.createChooser(share, "Share this photo via..."));
+        Bitmap bitmap = BitmapFactory.decodeFile(path);
+        try {
+            File image = new File(this.getExternalCacheDir(), imageName);
+            FileOutputStream fOut = new FileOutputStream(image);
+            bitmap.compress(Bitmap.CompressFormat.JPEG, 100, fOut);
+            fOut.flush();
+            fOut.close();
+            final Intent share = new Intent(Intent.ACTION_SEND);
+            share.setType("image/jpeg");
+            share.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            share.putExtra(Intent.EXTRA_STREAM, Uri.fromFile(image));
+            startActivity(Intent.createChooser(share, "Share this photo via..."));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     public void renameImage() {

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--spanish-->
+    <string name="app_name">VApp</string>
+    <string name="add2album">Añadir al álbum</string>
+    <string name="details">Detalles</string>
+    <string name="delete">Eliminar</string>
+    <string name="setWallpaper">Establecer como fondo de pantalla</string>
+    <string name="rename">Rebautizar</string>
+    <string name="crop">Cortar</string>
+    <string name="sortByDateDesc">Corto por fecha escendiendo</string>
+    <string name="sortByDateAsc">Corto por fecha ascendiendo</string>
+    <string name="sort">Corto</string>
+    <string name="share">Compartir</string>
+
+</resources>

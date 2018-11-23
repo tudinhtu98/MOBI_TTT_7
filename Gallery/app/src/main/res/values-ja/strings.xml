@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--japanese-->
+    <string name="app_name">VApp</string>
+    <string name="add2album">アルバムに追加</string>
+    <string name="details">詳細</string>
+    <string name="delete">削除</string>
+    <string name="setWallpaper">壁紙として設定</string>
+    <string name="rename">リネーム</string>
+    <string name="crop">作物</string>
+    <string name="sortByDateDesc">降順でソートする</string>
+    <string name="sortByDateAsc">日付を昇順でソートする</string>
+    <string name="sort">ソート</string>
+    <string name="share">シェア</string>
+
+</resources>
