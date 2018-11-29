@@ -93,9 +93,12 @@ public class GalleryPreview extends AppCompatActivity {
                             case R.id.delete_prew:
                                 deleteImage();
                                 break;
-                           /* case R.id.crop_prew:
-                                cropImage();
-                                break;*/
+                            case R.id.SetWallpaper_menu:
+                                setWallpaper();
+                                break;
+                            case R.id.rename_menu:
+                                renameImage();
+                                break;
                         }
                         return false;
                     }
@@ -259,23 +262,28 @@ public class GalleryPreview extends AppCompatActivity {
     }
 
     public void renameImage() {
-        File originalFile = new File(path);
+        File originalFile = new File("Internal "+pathInDetails+"/"+imageName);
         //File newName = new File(pathInDetails + "/ahihi.jpg");
-        File newName = new File("ahihi.jpg");
+        File newName = new File("Internal "+pathInDetails+"/ahihi.png");
         //originalFile.mkdirs();
         //ImageIO.write(image, "jpg", originalFile);
 
-
-        if (originalFile.setWritable(true)) {
+        if (originalFile.exists()) {
             if (originalFile.setWritable(true, false)) {
                 boolean success = originalFile.renameTo(newName);
                 if (success) {
                     Toast.makeText(this, "Name changed", Toast.LENGTH_SHORT).show();
                 } else {
-                    Toast.makeText(this, "Can't changes name", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(this, "Can't change name", Toast.LENGTH_SHORT).show();
                 }
             }
             else {
+                boolean success = originalFile.renameTo(newName);
+                if (success) {
+                    Toast.makeText(this, "Name changed", Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(this, "Can't change name", Toast.LENGTH_SHORT).show();
+                }
                 Toast.makeText(this, "Can't set writable", Toast.LENGTH_SHORT).show();
             }
         }
