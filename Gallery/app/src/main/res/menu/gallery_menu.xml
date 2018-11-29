@@ -32,4 +32,7 @@
         android:id="@+id/delete_menu"
         android:icon="@android:drawable/ic_menu_delete"
         android:title="@string/delete" />
+    <item
+        android:id="@+id/Sticker_menu"
+        android:title="Sticker" />
 </menu>

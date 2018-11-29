@@ -108,6 +108,7 @@ public class GalleryPreview extends AppCompatActivity {
         Glide.with(GalleryPreview.this)
                 .load(new File(path)) // Uri of the picture
                 .into(GalleryPreviewImg);
+        Log.d("toast11",path);
 
         gestureDetector = new GestureDetector(this,new MyGesture());
         GalleryPreviewImg.setOnTouchListener(new View.OnTouchListener() {
@@ -205,11 +206,19 @@ public class GalleryPreview extends AppCompatActivity {
             case R.id.rightRotation_menu:
                 rightRotation();
                 break;
+            case R.id.Sticker_menu:
+                AddSticker();
+                break;
         }
 
         return super.onOptionsItemSelected(item);
     }
-
+    public void AddSticker()
+    {
+        Intent intent = new Intent(GalleryPreview.this, RepairImage.class);
+        intent.putExtra("path",path);
+        startActivity(intent);
+    }
     public  void leftRotation(){
         GalleryPreviewImg.setScaleType(ImageView.ScaleType.MATRIX);   //required
         matrix.postRotate( -90f, GalleryPreviewImg.getDrawable().getBounds().width()/2, GalleryPreviewImg.getDrawable().getBounds().height()/2);

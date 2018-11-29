@@ -61,6 +61,13 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".FavoriteAlbum" />
         </activity>
+        <activity android:name=".RepairImage"
+
+            android:configChanges="orientation|screenSize">
+            <!--<meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".GalleryPreview" />-->
+        </activity>
     </application>
 
 </manifest>
