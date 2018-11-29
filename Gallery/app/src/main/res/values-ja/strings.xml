@@ -12,5 +12,7 @@
     <string name="sortByDateAsc">日付を昇順でソートする</string>
     <string name="sort">ソート</string>
     <string name="share">シェア</string>
+    <string name="leftRotation">左回転</string>
+    <string name="rightRotation">右回転</string>
 
 </resources>

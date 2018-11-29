@@ -11,5 +11,7 @@
     <string name="sortByDateAsc">Sort by date ascending</string>
     <string name="sort">Sort</string>
     <string name="share">Share</string>
+    <string name="leftRotation">Left Rotation</string>
+    <string name="rightRotation">Right Rotation</string>
 
 </resources>

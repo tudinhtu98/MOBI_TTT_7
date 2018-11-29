@@ -4,6 +4,7 @@ import android.app.WallpaperManager;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Matrix;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
@@ -53,6 +54,8 @@ public class GalleryPreview extends AppCompatActivity {
     Handler myHandler = new Handler();
     BottomNavigationView bottomNavigationView;
     //private Bitmap mBitmap;
+    Matrix matrix = new Matrix();
+    float degrees = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -156,6 +159,12 @@ public class GalleryPreview extends AppCompatActivity {
         }// run
     };// backgroundTask
     @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        super.onCreateOptionsMenu(menu);
+        getMenuInflater().inflate(R.menu.gallery_menu, menu);
+        return true;
+    }
+    @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
 
@@ -166,7 +175,7 @@ public class GalleryPreview extends AppCompatActivity {
             {
                 CharSequence details = "Name: " + imageName + "\nPath: " + pathInDetails
                         + "\nDate modified: " + lastModDate + "\nSize: " + space + " KB";
-                int duration = Toast.LENGTH_SHORT;
+                int duration = Toast.LENGTH_LONG;
                 Toast.makeText(GalleryPreview.this, details, duration).show();
                 break;
             }
@@ -193,10 +202,35 @@ public class GalleryPreview extends AppCompatActivity {
             case R.id.share_menu:
                 shareImage();
                 break;
-
+            case R.id.leftRotation_menu:
+                leftRotation();
+                break;
+            case R.id.rightRotation_menu:
+                rightRotation();
+                break;
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    public  void leftRotation(){
+        GalleryPreviewImg.setScaleType(ImageView.ScaleType.MATRIX);   //required
+        matrix.postRotate( -90f, GalleryPreviewImg.getDrawable().getBounds().width()/2, GalleryPreviewImg.getDrawable().getBounds().height()/2);
+        if(degrees <= 0) {
+            degrees = 360;
+        }
+        degrees -= 90;
+        GalleryPreviewImg.setImageMatrix(matrix);
+    }
+
+    public  void rightRotation(){
+        GalleryPreviewImg.setScaleType(ImageView.ScaleType.MATRIX);   //required
+        matrix.postRotate( 90f, GalleryPreviewImg.getDrawable().getBounds().width()/2, GalleryPreviewImg.getDrawable().getBounds().height()/2);
+        if(degrees >= 360) {
+            degrees = 0;
+        }
+        degrees += 90;
+        GalleryPreviewImg.setImageMatrix(matrix);
     }
 
     public void shareImage() {
@@ -257,10 +291,7 @@ public class GalleryPreview extends AppCompatActivity {
 
     }
 
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.gallery_menu, menu);
-        return true;
-    }
+
 
     public void setWallpaper() {
         DisplayMetrics displayMetrics = new DisplayMetrics();
@@ -367,6 +398,12 @@ public class GalleryPreview extends AppCompatActivity {
         public boolean onFling(MotionEvent e1, MotionEvent e2, float velocityX, float velocityY) {
             //Kéo từ trái sang phải
             if(e2.getX() - e1.getX() > SWIPE_THRESHOLD*0.7  && Math.abs(velocityX) > SWIPE_VELOCITY && 0 < position ){
+                //Set lại góc 0 độ cho ảnh
+                GalleryPreviewImg.setScaleType(ImageView.ScaleType.MATRIX);   //required
+                matrix.postRotate( 360 - degrees, GalleryPreviewImg.getDrawable().getBounds().width()/2, GalleryPreviewImg.getDrawable().getBounds().height()/2);
+                degrees = 0;
+                GalleryPreviewImg.setImageMatrix(matrix);
+
                 position--;
                 updateImageInfo(position);
                 setTitle(imageName);
@@ -377,6 +414,12 @@ public class GalleryPreview extends AppCompatActivity {
             }
             //Kéo từ phải sang trái
             if(e1.getX() - e2.getX() > SWIPE_THRESHOLD*0.7  && Math.abs(velocityX) > SWIPE_VELOCITY && position < list.size() - 1){
+                //Set lại góc 0 độ cho ảnh
+                GalleryPreviewImg.setScaleType(ImageView.ScaleType.MATRIX);   //required
+                matrix.postRotate( 360 - degrees, GalleryPreviewImg.getDrawable().getBounds().width()/2, GalleryPreviewImg.getDrawable().getBounds().height()/2);
+                degrees = 0;
+                GalleryPreviewImg.setImageMatrix(matrix);
+
                 //Next hình tiếp theo
                 position++;
                 updateImageInfo(position);

@@ -12,5 +12,7 @@
     <string name="sortByDateAsc">Corto por fecha ascendiendo</string>
     <string name="sort">Corto</string>
     <string name="share">Compartir</string>
+    <string name="leftRotation">Rotación a la izquierda</string>
+    <string name="rightRotation">Rotación a la derecha</string>
 
 </resources>
