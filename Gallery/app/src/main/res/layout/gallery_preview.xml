@@ -5,7 +5,7 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#000000">
+    android:background="@android:color/background_dark">
 
 
     <android.support.design.widget.BottomNavigationView
@@ -15,10 +15,10 @@
         android:layout_alignParentBottom="true"
         android:layout_alignParentStart="true"
         android:layout_gravity="bottom"
-        android:background="@android:color/background_light"
-        app:itemBackground="@color/colorPrimary"
-        app:itemIconTint="#ffffff"
-        app:itemTextColor="#ffffff"
+        android:background="@android:color/background_dark"
+        app:itemBackground="@android:color/background_dark"
+        app:itemIconTint="@color/colorPrimary"
+        app:itemTextColor="@color/bottomBar"
         app:menu="@menu/bottom_menu" />
 
 
