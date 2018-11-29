@@ -20,7 +20,12 @@
         android:id="@+id/share_menu"
         android:icon="@android:drawable/ic_menu_share"
         android:title="@string/share" />
-
+    <item
+        android:id="@+id/leftRotation_menu"
+        android:title="@string/leftRotation" />
+    <item
+        android:id="@+id/rightRotation_menu"
+        android:title="@string/rightRotation" />
 
     <!-- Delete de duoi cung please -->
     <item

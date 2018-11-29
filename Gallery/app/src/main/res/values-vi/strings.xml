@@ -11,5 +11,7 @@
     <string name="sortByDateAsc">Sắp xếp theo ngày tăng dần</string>
     <string name="sort">Sắp xếp</string>
     <string name="share">Chia sẻ</string>
+    <string name="leftRotation">Xoay trái</string>
+    <string name="rightRotation">Xoay phải</string>
 
 </resources>
