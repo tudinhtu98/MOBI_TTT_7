@@ -14,5 +14,8 @@
     <string name="share">シェア</string>
     <string name="leftRotation">左回転</string>
     <string name="rightRotation">右回転</string>
+    <string name="setHomeScreen">ホーム画面に設定</string>
+    <string name="setLockScreen">ロック画面に設定</string>
+    <string name="setBothWallpaper">両方を設定する</string>
 
 </resources>

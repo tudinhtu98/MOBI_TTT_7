@@ -14,5 +14,8 @@
     <string name="share">Compartir</string>
     <string name="leftRotation">Rotación a la izquierda</string>
     <string name="rightRotation">Rotación a la derecha</string>
+    <string name="setBothWallpaper">Establecer ambos</string>
+    <string name="setLockScreen">Establecer como pantalla de bloqueo</string>
+    <string name="setHomeScreen">Establecer como pantalla de inicio</string>
 
 </resources>

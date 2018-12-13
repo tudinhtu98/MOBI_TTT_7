@@ -13,5 +13,8 @@
     <string name="share">Chia sẻ</string>
     <string name="leftRotation">Xoay trái</string>
     <string name="rightRotation">Xoay phải</string>
+    <string name="setBothWallpaper">Đặt cả hai</string>
+    <string name="setLockScreen">Đặt làm Màn hình khoá</string>
+    <string name="setHomeScreen">Đặt làm Màn hình chính</string>
 
 </resources>

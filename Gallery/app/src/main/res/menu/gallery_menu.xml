@@ -5,10 +5,22 @@
     <item
         android:id="@+id/Detail_menu"
         android:icon="@android:drawable/ic_menu_info_details"
-        android:title="@string/details" />
+        android:title="@string/details" ></item>
     <item
         android:id="@+id/SetWallpaper_menu"
-        android:title="@string/setWallpaper" />
+        android:title="@string/setWallpaper" >
+        <menu>
+            <item
+                android:id="@+id/setHomeScreen"
+                android:title="@string/setHomeScreen" />
+            <item
+                android:id="@+id/setLockScreen"
+                android:title="@string/setLockScreen" />
+            <item
+                android:id="@+id/setBoth"
+                android:title="@string/setBothWallpaper" />
+        </menu>
+    </item>
     <item
         android:id="@+id/rename_menu"
         android:title="@string/rename"/>

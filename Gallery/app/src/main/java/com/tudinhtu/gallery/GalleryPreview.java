@@ -6,6 +6,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Matrix;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.provider.MediaStore;
@@ -82,10 +83,7 @@ public class GalleryPreview extends AppCompatActivity {
                     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                         switch (item.getItemId()) {
                             case R.id.detail_prew:
-                                CharSequence details = "Name: " + imageName + "\nPath: " + pathInDetails
-                                        + "\nDate modified: " + lastModDate + "\nSize: " + space + " KB";
-                                int duration = Toast.LENGTH_SHORT;
-                                Toast.makeText(GalleryPreview.this, details, duration).show();
+                                Details();
                                 break;
                             case R.id.share_prew:
                                 shareImage();
@@ -93,8 +91,16 @@ public class GalleryPreview extends AppCompatActivity {
                             case R.id.delete_prew:
                                 deleteImage();
                                 break;
-                            case R.id.SetWallpaper_menu:
-                                setWallpaper();
+                            case R.id.setHomeScreen:
+                                setHomeScreen();
+                                break;
+
+                            case R.id.setLockScreen:
+                                setLockScreen();
+                                break;
+                            case R.id.setBoth:
+                                setHomeScreen();
+                                setLockScreen();
                                 break;
                             case R.id.rename_menu:
                                 renameImage();
@@ -173,33 +179,27 @@ public class GalleryPreview extends AppCompatActivity {
                 finish();
                 return true;
             case R.id.Detail_menu:
-            {
-                CharSequence details = "Name: " + imageName + "\nPath: " + pathInDetails
-                        + "\nDate modified: " + lastModDate + "\nSize: " + space + " KB";
-                int duration = Toast.LENGTH_LONG;
-                Toast.makeText(GalleryPreview.this, details, duration).show();
+                Details();
                 break;
-            }
-            case R.id.SetWallpaper_menu:
-            {
-                setWallpaper();
+            case R.id.setHomeScreen:
+                setHomeScreen();
                 break;
-            }
+            case R.id.setLockScreen:
+                setLockScreen();
+                break;
+            case R.id.setBoth:
+                setHomeScreen();
+                setLockScreen();
+                break;
             case R.id.delete_menu:
-            {
                 deleteImage();
                 break;
-            }
             case R.id.crop_menu:
-            {
                 cropImage();
                 break;
-            }
             case R.id.rename_menu:
-            {
                 renameImage();
                 break;
-            }
             case R.id.share_menu:
                 shareImage();
                 break;
@@ -215,6 +215,16 @@ public class GalleryPreview extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+    public void Details(){
+        Bitmap myBitmap = BitmapFactory.decodeFile(path);
+        int originalWidth = myBitmap.getWidth();
+        int originalHeight = myBitmap.getHeight();
+        CharSequence details = "Name: " + imageName + "\nPath: " + pathInDetails
+                + "\nDate modified: " + lastModDate + "\nSize: " + space + " KB"
+                + "\nResolution: "+ originalWidth + " x " + originalHeight;
+        int duration = Toast.LENGTH_SHORT;
+        Toast.makeText(GalleryPreview.this, details, duration).show();
     }
     public void AddSticker()
     {
@@ -300,9 +310,7 @@ public class GalleryPreview extends AppCompatActivity {
 
     }
 
-
-
-    public void setWallpaper() {
+    public void setHomeScreen() {
         DisplayMetrics displayMetrics = new DisplayMetrics();
         getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
         int height = displayMetrics.heightPixels;
@@ -312,42 +320,63 @@ public class GalleryPreview extends AppCompatActivity {
                 .getInstance(this);
         Bitmap myBitmap = BitmapFactory.decodeFile(path);
         Bitmap useThisBitmap;
-        float originalWidth = myBitmap.getWidth();
-        float originalHeight = myBitmap.getHeight();
-        if(originalHeight < originalWidth){
-            float scale;
-            int scaleWidth;
-            if(originalHeight > height){
-                scale = originalHeight*1.0f / height;
-                scaleWidth = (int) (myBitmap.getWidth() / scale);
-            }
-            else {
-                scale = height / originalHeight;
-                scaleWidth = (int) (myBitmap.getWidth() * scale);
-            }
-            useThisBitmap = Bitmap.createScaledBitmap(
-                    myBitmap, scaleWidth , height, true);
-            myBitmap.recycle();
-        } else{
-            float scale;
-            int scaleHeight;
-            if(originalWidth > width){
-                scale = originalWidth*1.0f / width;
-                scaleHeight = (int) (myBitmap.getHeight() / scale);
-            }
-            else {
-                scale = width / originalWidth;
-                scaleHeight = (int) (myBitmap.getHeight() * scale);
-            }
-            useThisBitmap = Bitmap.createScaledBitmap(
-                    myBitmap, width, scaleHeight, true);
-            myBitmap.recycle();
+        int originalHeight = myBitmap.getHeight();
+        int originalWidth = myBitmap.getWidth();
+        int scaleWidth;
+        if(originalHeight == height && originalWidth == width){
+            scaleWidth = originalWidth - 1;
         }
+        else{
+            scaleWidth = (int) (myBitmap.getWidth() * height*1.0f / originalHeight);
+        }
+        useThisBitmap = Bitmap.createScaledBitmap(
+                myBitmap, scaleWidth , height, true);
+        myBitmap.recycle();
 
-        if (myBitmap != null) {
+        if (useThisBitmap != null) {
             try {
                 myWallpaperManager.setBitmap(useThisBitmap);
                 Toast.makeText(this, "Set wallpaper successfully", Toast.LENGTH_SHORT).show();
+            } catch (IOException e) {
+                Toast.makeText(this, "Failed to set Backgroundimage", Toast.LENGTH_SHORT).show();
+            }
+        } else {
+            Toast.makeText(this, "Failed to decode image.", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    public void setLockScreen() {
+        DisplayMetrics displayMetrics = new DisplayMetrics();
+        getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
+        int height = displayMetrics.heightPixels;
+        int width = displayMetrics.widthPixels;
+
+        WallpaperManager myWallpaperManager = WallpaperManager
+                .getInstance(this);
+        Bitmap myBitmap = BitmapFactory.decodeFile(path);
+        Bitmap useThisBitmap;
+        int originalHeight = myBitmap.getHeight();
+        int originalWidth = myBitmap.getWidth();
+        int scaleWidth;
+        if(originalHeight == height && originalWidth == width){
+            scaleWidth = originalWidth - 1;
+        }
+        else{
+            scaleWidth = (int) (myBitmap.getWidth() * height*1.0f / originalHeight);
+        }
+        useThisBitmap = Bitmap.createScaledBitmap(
+                myBitmap, scaleWidth , height, true);
+        myBitmap.recycle();
+
+        if (useThisBitmap != null) {
+            try {
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                    myWallpaperManager.setBitmap(useThisBitmap, null, true, WallpaperManager.FLAG_LOCK);
+                    Toast.makeText(this, "Set wallpaper successfully", Toast.LENGTH_SHORT).show();
+                }
+                else{
+                    Toast.makeText(this, "Your device is not supported for the lock screen", Toast.LENGTH_SHORT).show();
+                }
             } catch (IOException e) {
                 Toast.makeText(this, "Failed to set Backgroundimage", Toast.LENGTH_SHORT).show();
             }
