@@ -4,6 +4,7 @@ import android.app.WallpaperManager;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.graphics.Matrix;
 import android.net.Uri;
 import android.os.Build;
@@ -31,6 +32,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 
@@ -72,6 +74,7 @@ public class GalleryPreview extends AppCompatActivity {
             Log.d("toast14",choose);
             myBackgroundThread.start();
         }
+
 
 
         path = list.get(position).get(Function.KEY_PATH);
@@ -127,7 +130,18 @@ public class GalleryPreview extends AppCompatActivity {
                 return false;
             }
         });
+
+        // set background color at daylight, at night
+        Calendar rightNow = Calendar.getInstance();
+        int hour = rightNow.get(Calendar.HOUR_OF_DAY);
+        if (hour >= 6 && hour < 18) {
+            GalleryPreviewImg.setBackgroundColor(Color.WHITE);
+        }
+        else {
+            GalleryPreviewImg.setBackgroundColor(Color.BLACK);
+        }
     }
+
     private Runnable foregroundRunnable = new Runnable() {
         @Override
         public void run() {
@@ -147,6 +161,7 @@ public class GalleryPreview extends AppCompatActivity {
             }
         }
     };
+
     private Runnable backgroundTask = new Runnable() {
         @Override
         public void run() {
@@ -165,12 +180,14 @@ public class GalleryPreview extends AppCompatActivity {
 
         }// run
     };// backgroundTask
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         super.onCreateOptionsMenu(menu);
         getMenuInflater().inflate(R.menu.gallery_menu, menu);
         return true;
     }
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
@@ -216,6 +233,7 @@ public class GalleryPreview extends AppCompatActivity {
 
         return super.onOptionsItemSelected(item);
     }
+
     public void Details(){
         Bitmap myBitmap = BitmapFactory.decodeFile(path);
         int originalWidth = myBitmap.getWidth();
@@ -226,12 +244,14 @@ public class GalleryPreview extends AppCompatActivity {
         int duration = Toast.LENGTH_SHORT;
         Toast.makeText(GalleryPreview.this, details, duration).show();
     }
+
     public void AddSticker()
     {
         Intent intent = new Intent(GalleryPreview.this, RepairImage.class);
         intent.putExtra("path",path);
         startActivity(intent);
     }
+
     public  void leftRotation(){
         GalleryPreviewImg.setScaleType(ImageView.ScaleType.MATRIX);   //required
         matrix.postRotate( -90f, GalleryPreviewImg.getDrawable().getBounds().width()/2, GalleryPreviewImg.getDrawable().getBounds().height()/2);
@@ -408,7 +428,6 @@ public class GalleryPreview extends AppCompatActivity {
         finish();
     }
 
-
     public void updateImageInfo(int positionTemp) {
         path = list.get(positionTemp).get(Function.KEY_PATH);
         pathInDetails = "";
@@ -480,6 +499,4 @@ public class GalleryPreview extends AppCompatActivity {
             return super.onFling(e1, e2, velocityX, velocityY);
         }
     }
-
-
 }

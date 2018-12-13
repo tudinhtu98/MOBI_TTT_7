@@ -6,6 +6,7 @@ import android.content.SharedPreferences;
 import android.content.res.Resources;
 import android.database.Cursor;
 import android.database.MergeCursor;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -29,6 +30,7 @@ import com.bumptech.glide.Glide;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Collections;
 import java.util.HashMap;
 
@@ -69,9 +71,15 @@ public class AlbumActivity extends AppCompatActivity {
             galleryGridView.setColumnWidth(Math.round(px));
         }
 
-
-
-
+        // set background color at daylight, at night
+        Calendar rightNow = Calendar.getInstance();
+        int hour = rightNow.get(Calendar.HOUR_OF_DAY);
+        if (hour >= 6 && hour < 18) {
+            galleryGridView.setBackgroundColor(Color.WHITE);
+        }
+        else {
+            galleryGridView.setBackgroundColor(Color.BLACK);
+        }
     }
 
     @Override
