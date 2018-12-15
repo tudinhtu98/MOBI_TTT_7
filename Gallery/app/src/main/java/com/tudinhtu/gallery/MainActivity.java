@@ -3,7 +3,9 @@ package com.tudinhtu.gallery;
 
 import android.Manifest;
 import android.app.Activity;
+import android.app.Dialog;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.content.res.Resources;
 import android.database.Cursor;
@@ -12,6 +14,7 @@ import android.graphics.Color;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.provider.MediaStore;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
@@ -22,11 +25,14 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.GridView;
 import android.widget.ImageView;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -37,6 +43,7 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -44,8 +51,14 @@ public class MainActivity extends AppCompatActivity {
     LoadAlbum loadAlbumTask;
 
     GridView galleryGridView;
-    String uri="";
+    RadioGroup radioGroup;
+    Dialog dialog;
+    Button buttonOK;
+    RadioButton rdLight, rdDark, rdAuto;
+    int theme = 2;   // default
+
     ArrayList<HashMap<String, String>> albumList = new ArrayList<HashMap<String, String>>();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -70,49 +83,104 @@ public class MainActivity extends AppCompatActivity {
             ActivityCompat.requestPermissions(this, PERMISSIONS, REQUEST_PERMISSION_KEY);
         }
 
-        // set background color at daylight, at night
-        Calendar rightNow = Calendar.getInstance();
-        int hour = rightNow.get(Calendar.HOUR_OF_DAY);
-        if (hour >= 6 && hour < 18) {
-            galleryGridView.setBackgroundColor(Color.WHITE);
-        }
-        else {
-            galleryGridView.setBackgroundColor(Color.BLACK);
-        }
+        setBackground(theme); //auto
+
     }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        /*albumList.clear();
-        String[] PERMISSIONS = {Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE};
-        if(!Function.hasPermissions(this, PERMISSIONS)){
-            ActivityCompat.requestPermissions(this, PERMISSIONS, REQUEST_PERMISSION_KEY);
-        }else{
-            loadAlbumTask = new LoadAlbum();
-            loadAlbumTask.execute();
-        }*/
-
     }
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-
             case android.R.id.home:
                 finish();
                 return true;
             case R.id.Add:
-            {
                 Intent intent = new Intent(MainActivity.this, FavoriteAlbum.class);
                 startActivityForResult(intent,0);
-            }
-
+                break;
+            case R.id.delete:
+                break;
+            case R.id.background:
+                showRadioButtonDialog();
+                break;
         }
-
         return super.onOptionsItemSelected(item);
     }
 
+    private void showRadioButtonDialog() {
+        dialog = new Dialog(this);
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.setContentView(R.layout.radiobutton_dialog);
+
+        radioGroup = (RadioGroup) findViewById(R.id.radio_group);
+        buttonOK = (Button) dialog.findViewById(R.id.btnOK);
+        rdLight = (RadioButton)dialog.findViewById(R.id.radio_light);
+        rdDark = (RadioButton)dialog.findViewById(R.id.radio_dark);
+        rdAuto = (RadioButton) dialog.findViewById(R.id.radio_auto);
+        dialog.show();
+
+        buttonOK.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (rdLight.isChecked()) {
+                    theme = 0;
+                    setBackground(theme);
+                    Toast.makeText(MainActivity.this, "Theme: " + rdLight.getText(), Toast.LENGTH_SHORT).show();
+                }
+                if (rdDark.isChecked()) {
+                    theme = 1;
+                    setBackground(theme);
+                    Toast.makeText(MainActivity.this, "Theme: " + rdDark.getText(), Toast.LENGTH_SHORT).show();
+                }
+                if (rdAuto.isChecked()) {
+                    theme = 2;
+                    setBackground(theme);
+                    Toast.makeText(MainActivity.this, "Theme: " + rdAuto.getText(), Toast.LENGTH_SHORT).show();
+                }
+
+                dialog.dismiss();
+            }
+        });
+
+    }
+
+    private void setBackground(int theme) {
+        Calendar rightNow = Calendar.getInstance();
+        int hour = rightNow.get(Calendar.HOUR_OF_DAY);
+        switch (theme) {
+            case 0:
+                galleryGridView.setBackgroundColor(Color.WHITE);
+                break;
+            case 1:
+                galleryGridView.setBackgroundColor(Color.BLACK);
+                break;
+            case 2:
+                if (hour >= 6 && hour < 18) {
+                    galleryGridView.setBackgroundColor(Color.WHITE);
+                }
+                else {
+                    galleryGridView.setBackgroundColor(Color.BLACK);
+                }
+                break;
+        }
+
+        savingPreferences();
+    }
+
+    public void savingPreferences() {
+        SharedPreferences sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.clear();
+        editor.putInt("key", theme);
+        editor.apply();
+    }
+
     public boolean onCreateOptionsMenu(Menu menu) {
+
         getMenuInflater().inflate(R.menu.main_menu, menu);
         return true;
     }
@@ -265,7 +333,6 @@ class AlbumAdapter extends BaseAdapter {
         return convertView;
     }
 }
-
 
 class AlbumViewHolder {
     ImageView galleryImage;

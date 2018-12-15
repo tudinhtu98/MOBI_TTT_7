@@ -17,5 +17,6 @@
     <string name="setBothWallpaper">Establecer ambos</string>
     <string name="setLockScreen">Establecer como pantalla de bloqueo</string>
     <string name="setHomeScreen">Establecer como pantalla de inicio</string>
+    <string name="background">Interfaz</string>
 
 </resources>

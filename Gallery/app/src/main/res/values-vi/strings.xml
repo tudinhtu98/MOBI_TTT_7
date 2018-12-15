@@ -16,5 +16,11 @@
     <string name="setBothWallpaper">Đặt cả hai</string>
     <string name="setLockScreen">Đặt làm Màn hình khoá</string>
     <string name="setHomeScreen">Đặt làm Màn hình chính</string>
-
+    <string name="background">Giao diện</string>
+    <string name="theme">Chủ đề</string>
+    <string name="light">Sáng</string>
+    <string name="dark">Tối</string>
+    <string name="auto">Tự động</string>
+    <string name="ok">OK</string>
+    <string name="chooseTheme">Chọn chủ đề</string>
 </resources>

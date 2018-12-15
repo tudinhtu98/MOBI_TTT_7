@@ -17,5 +17,6 @@
     <string name="setHomeScreen">ホーム画面に設定</string>
     <string name="setLockScreen">ロック画面に設定</string>
     <string name="setBothWallpaper">両方を設定する</string>
+    <string name="background">インタフェース</string>
 
 </resources>
