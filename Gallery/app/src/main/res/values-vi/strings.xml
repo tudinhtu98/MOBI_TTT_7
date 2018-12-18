@@ -16,6 +16,7 @@
     <string name="setBothWallpaper">Đặt cả hai</string>
     <string name="setLockScreen">Đặt làm Màn hình khoá</string>
     <string name="setHomeScreen">Đặt làm Màn hình chính</string>
+<<<<<<< HEAD
     <string name="welcomeGuilde">Chào mừng đến với VAlbum\nHướng dẫn sử dụng</string>
     <string name="resetSticker">Đặt lại</string>
     <string name="saveSticker">Lưu lại</string>
@@ -31,4 +32,13 @@
     <string name="touchSlideShow">Chạm để mở trình chiếu</string>
     <string name="surfLeftOrRight">Vuốt trái hoặc phải để chuyển hình</string>
     <string name="surfUpOrDown">Vướt lên hoặc xuống để thoát</string>
+=======
+    <string name="background">Giao diện</string>
+    <string name="theme">Chủ đề</string>
+    <string name="light">Sáng</string>
+    <string name="dark">Tối</string>
+    <string name="auto">Tự động</string>
+    <string name="ok">OK</string>
+    <string name="chooseTheme">Chọn chủ đề</string>
+>>>>>>> 225025fcbde1a5aeecc6304ad86023236bbb26db
 </resources>

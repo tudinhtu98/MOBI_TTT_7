@@ -17,6 +17,7 @@
     <string name="setHomeScreen">ホーム画面に設定</string>
     <string name="setLockScreen">ロック画面に設定</string>
     <string name="setBothWallpaper">両方を設定する</string>
+<<<<<<< HEAD
     <string name="welcomeGuilde">VAlbumへようこそ\nアプリケーションガイド</string>
     <string name="resetSticker">リセット</string>
     <string name="saveSticker">保存する</string>
@@ -32,4 +33,8 @@
     <string name="touchSlideShow">タッチしてスライドショーを開く</string>
     <string name="surfLeftOrRight">左または右にスワイプして画像を転送する</string>
     <string name="surfUpOrDown">上下にスワイプする</string>
+=======
+    <string name="background">インタフェース</string>
+
+>>>>>>> 225025fcbde1a5aeecc6304ad86023236bbb26db
 </resources>

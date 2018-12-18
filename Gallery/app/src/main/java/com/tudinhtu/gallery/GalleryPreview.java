@@ -1,8 +1,13 @@
 package com.tudinhtu.gallery;
 
+import android.app.Dialog;
 import android.app.WallpaperManager;
 import android.content.Intent;
 import android.content.SharedPreferences;
+<<<<<<< HEAD
+=======
+import android.content.res.ColorStateList;
+>>>>>>> 225025fcbde1a5aeecc6304ad86023236bbb26db
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
@@ -11,6 +16,7 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
+import android.preference.PreferenceManager;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
@@ -22,8 +28,13 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
+<<<<<<< HEAD
 import android.widget.ImageButton;
+=======
+import android.view.Window;
+>>>>>>> 225025fcbde1a5aeecc6304ad86023236bbb26db
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
@@ -41,7 +52,6 @@ import java.util.HashMap;
 
 
 public class GalleryPreview extends AppCompatActivity {
-
     ImageView GalleryPreviewImg;
     String path, pathInDetails;
     String imageName, lastModDate;
@@ -64,6 +74,7 @@ public class GalleryPreview extends AppCompatActivity {
     Matrix matrix = new Matrix();
     float degrees = 0;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -79,13 +90,18 @@ public class GalleryPreview extends AppCompatActivity {
             myBackgroundThread.start();
         }
 
-
+        SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
+        int theme = sharedPref.getInt("key", 1);
 
         path = list.get(position).get(Function.KEY_PATH);
         GalleryPreviewImg = (ImageView) findViewById(R.id.GalleryPreviewImg);
+<<<<<<< HEAD
          imbRotationL=(ImageButton)findViewById(R.id.leftRotationBt);
         imbRotationR=(ImageButton) findViewById(R.id.rightRotationBt);
         bottomNavigationView=(BottomNavigationView) findViewById(R.id.Bottombar);
+=======
+        bottomNavigationView=(BottomNavigationView) findViewById(R.id.bottomBar);
+>>>>>>> 225025fcbde1a5aeecc6304ad86023236bbb26db
         bottomNavigationView.setOnNavigationItemSelectedListener(
                 new BottomNavigationView.OnNavigationItemSelectedListener() {
                     @Override
@@ -99,20 +115,6 @@ public class GalleryPreview extends AppCompatActivity {
                                 break;
                             case R.id.delete_prew:
                                 deleteImage();
-                                break;
-                            case R.id.setHomeScreen:
-                                setHomeScreen();
-                                break;
-
-                            case R.id.setLockScreen:
-                                setLockScreen();
-                                break;
-                            case R.id.setBoth:
-                                setHomeScreen();
-                                setLockScreen();
-                                break;
-                            case R.id.rename_menu:
-                                renameImage();
                                 break;
                         }
                         return false;
@@ -137,15 +139,7 @@ public class GalleryPreview extends AppCompatActivity {
             }
         });
 
-        // set background color at daylight, at night
-        Calendar rightNow = Calendar.getInstance();
-        int hour = rightNow.get(Calendar.HOUR_OF_DAY);
-        if (hour >= 6 && hour < 18) {
-            GalleryPreviewImg.setBackgroundColor(Color.WHITE);
-        }
-        else {
-            GalleryPreviewImg.setBackgroundColor(Color.BLACK);
-        }
+        setBackground(theme);
     }
     @Override
     protected void onPause() {
@@ -227,7 +221,6 @@ public class GalleryPreview extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-
             case android.R.id.home:
                 finish();
                 return true;
@@ -295,11 +288,45 @@ public class GalleryPreview extends AppCompatActivity {
         Bitmap myBitmap = BitmapFactory.decodeFile(path);
         int originalWidth = myBitmap.getWidth();
         int originalHeight = myBitmap.getHeight();
-        CharSequence details = "Name: " + imageName + "\nPath: " + pathInDetails
-                + "\nDate modified: " + lastModDate + "\nSize: " + space + " KB"
-                + "\nResolution: "+ originalWidth + " x " + originalHeight;
-        int duration = Toast.LENGTH_SHORT;
-        Toast.makeText(GalleryPreview.this, details, duration).show();
+        CharSequence details = "Name: " + imageName + "\n_____\nPath: " + pathInDetails
+                + "\n_____\nDate modified: " + lastModDate + "\n_____\nSize: " + space + " KB"
+                + "\n_____\nResolution: "+ originalWidth + " x " + originalHeight;
+
+        Dialog dialog = new Dialog(this);
+        dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog.setContentView(R.layout.details_photo);
+        TextView details_photo = (TextView) dialog.findViewById(R.id.details);
+        details_photo.setText(details);
+        dialog.show();
+    }
+
+    private void setBackground(int theme) {
+        Calendar rightNow = Calendar.getInstance();
+        int hour = rightNow.get(Calendar.HOUR_OF_DAY);
+        switch (theme) {
+            case 0:
+                GalleryPreviewImg.setBackgroundColor(Color.WHITE);
+                bottomNavigationView.setBackgroundColor(Color.rgb(226,220,224));
+                bottomNavigationView.setItemTextColor(ColorStateList.valueOf(Color.BLACK));
+                break;
+            case 1:
+                GalleryPreviewImg.setBackgroundColor(Color.BLACK);
+                bottomNavigationView.setBackgroundColor(Color.BLACK);
+                bottomNavigationView.setItemTextColor(ColorStateList.valueOf(Color.WHITE));
+                break;
+            case 2:
+                if (hour >= 6 && hour < 18) {
+                    GalleryPreviewImg.setBackgroundColor(Color.WHITE);
+                    bottomNavigationView.setBackgroundColor(Color.rgb(226,220,224));//(rgb(ccc6ca));
+                    bottomNavigationView.setItemTextColor(ColorStateList.valueOf(Color.BLACK));
+                }
+                else {
+                    GalleryPreviewImg.setBackgroundColor(Color.BLACK);
+                    bottomNavigationView.setBackgroundColor(Color.BLACK);
+                    bottomNavigationView.setItemTextColor(ColorStateList.valueOf(Color.rgb(226,220,224)));
+                }
+                break;
+        }
     }
 
     public void AddSticker()

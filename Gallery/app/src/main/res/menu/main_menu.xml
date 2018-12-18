@@ -11,6 +11,15 @@
         app:showAsAction="always"
         tools:icon="@android:drawable/ic_menu_add" />
     <item
+<<<<<<< HEAD
         android:id="@+id/Guide"
         android:title="@string/Guide" />
+=======
+        android:id="@+id/delete"
+        android:title="@string/delete" />
+    <item
+        android:id="@+id/background"
+        android:title="@string/theme"
+        />
+>>>>>>> 225025fcbde1a5aeecc6304ad86023236bbb26db
 </menu>

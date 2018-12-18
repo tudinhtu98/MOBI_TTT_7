@@ -10,6 +10,7 @@ import android.graphics.Color;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
 import android.util.DisplayMetrics;
@@ -56,6 +57,8 @@ public class AlbumActivity extends AppCompatActivity {
         album_name = intent.getStringExtra("name");
         setTitle(album_name);
 
+        SharedPreferences sharedPref = PreferenceManager.getDefaultSharedPreferences(this);
+        int theme = sharedPref.getInt("key", 1);
 
         galleryGridView = findViewById(R.id.galleryGridView);
         int iDisplayWidth = getResources().getDisplayMetrics().widthPixels ;
@@ -79,6 +82,8 @@ public class AlbumActivity extends AppCompatActivity {
         else {
             galleryGridView.setBackgroundColor(Color.BLACK);
         }
+
+        setBackground(theme);
     }
 
     @Override
@@ -106,6 +111,26 @@ public class AlbumActivity extends AppCompatActivity {
         editor.clear();
         editor.putInt(album_name,isdateDecrease);
         editor.commit();
+    }
+
+    private void setBackground(int theme) {
+        Calendar rightNow = Calendar.getInstance();
+        int hour = rightNow.get(Calendar.HOUR_OF_DAY);
+        switch (theme) {
+            case 0:
+                galleryGridView.setBackgroundColor(Color.WHITE);
+                break;
+            case 1:
+                galleryGridView.setBackgroundColor(Color.BLACK);
+                break;
+            case 2:
+                if (hour >= 6 && hour < 18) {
+                    galleryGridView.setBackgroundColor(Color.WHITE);
+                } else {
+                    galleryGridView.setBackgroundColor(Color.BLACK);
+                }
+                break;
+        }
     }
 
     @Override
