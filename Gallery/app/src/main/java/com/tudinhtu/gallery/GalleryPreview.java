@@ -2,6 +2,7 @@ package com.tudinhtu.gallery;
 
 import android.app.WallpaperManager;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
@@ -21,6 +22,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Toast;
 import com.bumptech.glide.Glide;
@@ -46,6 +48,8 @@ public class GalleryPreview extends AppCompatActivity {
     String[] namePart;
     int position;
     int positionShow=0;
+    boolean firstTimeGallery;
+    ImageButton imbRotationL,imbRotationR;
     long space;
     static ArrayList<HashMap<String, String>> list = new ArrayList<HashMap<String, String>>();
     ArrayList<HashMap<String, String>> datelist = new ArrayList<HashMap<String, String>>();
@@ -79,6 +83,8 @@ public class GalleryPreview extends AppCompatActivity {
 
         path = list.get(position).get(Function.KEY_PATH);
         GalleryPreviewImg = (ImageView) findViewById(R.id.GalleryPreviewImg);
+         imbRotationL=(ImageButton)findViewById(R.id.leftRotationBt);
+        imbRotationR=(ImageButton) findViewById(R.id.rightRotationBt);
         bottomNavigationView=(BottomNavigationView) findViewById(R.id.Bottombar);
         bottomNavigationView.setOnNavigationItemSelectedListener(
                 new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -141,7 +147,37 @@ public class GalleryPreview extends AppCompatActivity {
             GalleryPreviewImg.setBackgroundColor(Color.BLACK);
         }
     }
+    @Override
+    protected void onPause() {
+        super.onPause();
+        savingPreferencesGallery();
+    }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        restoringPreferencesGallery();
+        if(firstTimeGallery==true)
+        {
+            Intent intent = new Intent(GalleryPreview.this, Guide.class);
+            intent.putExtra("choose","gallery" );
+            startActivity(intent);
+        }
+    }
+
+    public void savingPreferencesGallery() {
+        SharedPreferences pre=getSharedPreferences(MainActivity.appFirstTime,MODE_PRIVATE);
+        SharedPreferences.Editor editor=pre.edit();
+        if(pre.getBoolean("gallery",true)==true) {
+            //editor.remove("main");
+            editor.putBoolean("gallery", false);
+        }
+        editor.commit();
+    }
+    public void restoringPreferencesGallery() {
+        SharedPreferences pre=getSharedPreferences(MainActivity.appFirstTime,MODE_PRIVATE);
+        firstTimeGallery=pre.getBoolean("gallery",true);
+    }
     private Runnable foregroundRunnable = new Runnable() {
         @Override
         public void run() {
@@ -222,9 +258,11 @@ public class GalleryPreview extends AppCompatActivity {
                 break;
             case R.id.leftRotation_menu:
                 leftRotation();
+                Rotation();
                 break;
             case R.id.rightRotation_menu:
                 rightRotation();
+                Rotation();
                 break;
             case R.id.Sticker_menu:
                 AddSticker();
@@ -234,6 +272,25 @@ public class GalleryPreview extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    public void Rotation() {
+        Log.d("toast22","1");
+        imbRotationR.setVisibility(View.VISIBLE);
+        imbRotationL.setVisibility(View.VISIBLE);
+        imbRotationR.bringToFront();
+        imbRotationL.bringToFront();
+        imbRotationL.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                leftRotation();
+            }
+        });
+        imbRotationR.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                rightRotation();
+            }
+        });
+    }
     public void Details(){
         Bitmap myBitmap = BitmapFactory.decodeFile(path);
         int originalWidth = myBitmap.getWidth();

@@ -11,9 +11,6 @@
         app:showAsAction="always"
         tools:icon="@android:drawable/ic_menu_slideshow" />
     <item
-        android:id="@+id/deleteAlbum_menu"
-        android:title="@string/delete" />
-    <item
         android:id="@+id/sort_album"
         android:title="@string/sort" >
         <menu >
@@ -24,6 +21,11 @@
                 android:id="@+id/decending"
                 android:title="@string/sortByDateDesc" />
 
+
         </menu>
+
     </item>
+    <item
+        android:id="@+id/guildeAlbum_menu"
+        android:title="@string/delete" />
 </menu>

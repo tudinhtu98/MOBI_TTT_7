@@ -68,6 +68,13 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".GalleryPreview" />-->
         </activity>
+        <activity android:name=".Guide"
+
+            android:configChanges="orientation|screenSize">
+           <!-- <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".GalleryPreview" />-->
+        </activity>
     </application>
 
 </manifest>

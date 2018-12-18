@@ -109,7 +109,7 @@ public class RepairImage extends MainActivity {
                 }
                 else
                 {
-                    Toast.makeText(RepairImage.this, "Không thể thêm Sticker nữa!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(RepairImage.this, RepairImage.this.getString(R.string.errorSsticker), Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -300,11 +300,15 @@ public class RepairImage extends MainActivity {
     }
     private void Remove()
     {
-        imgView1.setVisibility(View.INVISIBLE);
+        Intent intent = getIntent();
+        finish();
+        startActivity(intent);
+
+      /*  imgView1.setVisibility(View.INVISIBLE);
         imgView2.setVisibility(View.INVISIBLE);
         imgView3.setVisibility(View.INVISIBLE);
         imgView4.setVisibility(View.INVISIBLE);
         imgView5.setVisibility(View.INVISIBLE);
-        slSticker=0;
+        slSticker=0;*/
     }
 }

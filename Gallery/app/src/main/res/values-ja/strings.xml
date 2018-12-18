@@ -17,5 +17,19 @@
     <string name="setHomeScreen">ホーム画面に設定</string>
     <string name="setLockScreen">ロック画面に設定</string>
     <string name="setBothWallpaper">両方を設定する</string>
-
+    <string name="welcomeGuilde">VAlbumへようこそ\nアプリケーションガイド</string>
+    <string name="resetSticker">リセット</string>
+    <string name="saveSticker">保存する</string>
+    <string name="nextGuide">次へ</string>
+    <string name="PreviewGuide">戻ってくる</string>
+    <string name="gotItGuide">完成した</string>
+    <string name="errorSsticker">他のステッカーを追加できません!</string>
+    <string name="addSticker">ステッカーを追加</string>
+    <string name="Guide">ガイド</string>
+    <string name="nameAlbum">名前アルバム</string>
+    <string name="numberPhotos">写真の枚数</string>
+    <string name="touchGuide">タッチして開く</string>
+    <string name="touchSlideShow">タッチしてスライドショーを開く</string>
+    <string name="surfLeftOrRight">左または右にスワイプして画像を転送する</string>
+    <string name="surfUpOrDown">上下にスワイプする</string>
 </resources>

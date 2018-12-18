@@ -4,6 +4,7 @@ package com.tudinhtu.gallery;
 import android.Manifest;
 import android.app.Activity;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.content.res.Resources;
 import android.database.Cursor;
@@ -42,7 +43,8 @@ public class MainActivity extends AppCompatActivity {
 
     static final int REQUEST_PERMISSION_KEY = 1;
     LoadAlbum loadAlbumTask;
-
+    static String appFirstTime="first-time";
+    boolean firstTimeMain;
     GridView galleryGridView;
     String uri="";
     ArrayList<HashMap<String, String>> albumList = new ArrayList<HashMap<String, String>>();
@@ -105,13 +107,33 @@ public class MainActivity extends AppCompatActivity {
             {
                 Intent intent = new Intent(MainActivity.this, FavoriteAlbum.class);
                 startActivityForResult(intent,0);
+                break;
+            }
+            case R.id.Guide:
+            {
+                Intent intent = new Intent(MainActivity.this, Guide.class);
+                intent.putExtra("choose","main" );
+                startActivity(intent);
+                break;
             }
 
         }
 
         return super.onOptionsItemSelected(item);
     }
-
+    public void savingPreferencesMain() {
+        SharedPreferences pre=getSharedPreferences(appFirstTime,MODE_PRIVATE);
+        SharedPreferences.Editor editor=pre.edit();
+        if(pre.getBoolean("main",true)==true) {
+            //editor.remove("main");
+            editor.putBoolean("main", false);
+        }
+        editor.commit();
+    }
+    public void restoringPreferencesMain() {
+        SharedPreferences pre=getSharedPreferences(appFirstTime,MODE_PRIVATE);
+        firstTimeMain=pre.getBoolean("main",true);
+    }
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.main_menu, menu);
         return true;
@@ -199,15 +221,29 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
+        restoringPreferencesMain();
 
         String[] PERMISSIONS = {Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE};
         if(!Function.hasPermissions(this, PERMISSIONS)){
             ActivityCompat.requestPermissions(this, PERMISSIONS, REQUEST_PERMISSION_KEY);
+            if(firstTimeMain==true)
+            {
+                Intent intent = new Intent(MainActivity.this, Guide.class);
+                intent.putExtra("choose","main" );
+                startActivity(intent);
+            }
         }else{
+
             loadAlbumTask = new LoadAlbum();
             loadAlbumTask.execute();
         }
 
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        savingPreferencesMain();
     }
 }
 

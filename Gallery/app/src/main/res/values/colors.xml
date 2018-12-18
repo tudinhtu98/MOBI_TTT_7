@@ -4,4 +4,5 @@
     <color name="colorPrimaryDark">#7B2A74</color>
     <color name="bottomBar">#ccc6ca</color>
     <color name="colorAccent">#fbc050</color>
+    <color name="choose">#195499</color>
 </resources>

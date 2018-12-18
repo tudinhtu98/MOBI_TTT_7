@@ -4,10 +4,10 @@
 
     <item
         android:id="@+id/Remove"
-        android:title="Đặt lại"
+        android:title="@string/resetSticker"
         app:showAsAction="always" />
     <item
         android:id="@+id/save"
-        android:title="Lưu"
+        android:title="@string/saveSticker"
         app:showAsAction="always" />
 </menu>

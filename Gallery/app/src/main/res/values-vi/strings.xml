@@ -16,5 +16,19 @@
     <string name="setBothWallpaper">Đặt cả hai</string>
     <string name="setLockScreen">Đặt làm Màn hình khoá</string>
     <string name="setHomeScreen">Đặt làm Màn hình chính</string>
-
+    <string name="welcomeGuilde">Chào mừng đến với VAlbum\nHướng dẫn sử dụng</string>
+    <string name="resetSticker">Đặt lại</string>
+    <string name="saveSticker">Lưu lại</string>
+    <string name="nextGuide">Tiếp theo</string>
+    <string name="PreviewGuide">Trở lại</string>
+    <string name="gotItGuide">Xong</string>
+    <string name="errorSsticker">Không thể thêm nhiều Sticker hơn!</string>
+    <string name="addSticker">Thêm Sticker</string>
+    <string name="Guide">Hướng dẫn</string>
+    <string name="nameAlbum">Tên Album</string>
+    <string name="numberPhotos">Số lượng hình ảnh</string>
+    <string name="touchGuide">Chạm để mở</string>
+    <string name="touchSlideShow">Chạm để mở trình chiếu</string>
+    <string name="surfLeftOrRight">Vuốt trái hoặc phải để chuyển hình</string>
+    <string name="surfUpOrDown">Vướt lên hoặc xuống để thoát</string>
 </resources>

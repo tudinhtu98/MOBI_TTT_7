@@ -38,12 +38,11 @@ import java.util.HashMap;
 public class AlbumActivity extends AppCompatActivity {
     GridView galleryGridView;
     int isdateDecrease;
-    Spinner spnDate;
     ArrayList<HashMap<String, String>> imageList = new ArrayList<HashMap<String, String>>();
     static  ArrayList<HashMap<String, String>> dateList = new ArrayList<HashMap<String, String>>();
     static int isdelete =0;
     static int posDelete =0;
-
+    boolean firstTimeAlbum;
     String album_name = "";
     LoadAlbumImages loadAlbumTask;
 
@@ -86,8 +85,21 @@ public class AlbumActivity extends AppCompatActivity {
     protected void onPause() {
         super.onPause();
         savingPreferences();
+        savingPreferencesAlbum();
     }
-
+    public void savingPreferencesAlbum() {
+        SharedPreferences pre=getSharedPreferences(MainActivity.appFirstTime,MODE_PRIVATE);
+        SharedPreferences.Editor editor=pre.edit();
+        if(pre.getBoolean("album",true)==true) {
+            //editor.remove("main");
+            editor.putBoolean("album", false);
+        }
+        editor.commit();
+    }
+    public void restoringPreferencesMainAlbum() {
+        SharedPreferences pre=getSharedPreferences(MainActivity.appFirstTime,MODE_PRIVATE);
+        firstTimeAlbum=pre.getBoolean("album",true);
+    }
     public void savingPreferences() {
         SharedPreferences pre=getSharedPreferences(album_name,MODE_PRIVATE);
         SharedPreferences.Editor editor=pre.edit();
@@ -100,10 +112,18 @@ public class AlbumActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         restoringPreferences();
+        restoringPreferencesMainAlbum();
+        if(firstTimeAlbum==true)
+        {
+            Intent intent = new Intent(AlbumActivity.this, Guide.class);
+            intent.putExtra("choose","album" );
+            startActivity(intent);
+        }
         if(isdelete==0) {
             loadAlbumTask = new LoadAlbumImages();
             loadAlbumTask.execute();
-        }else if(isdelete==1) {
+        }
+        else if(isdelete==1) {
             Toast.makeText(AlbumActivity.this, "Deleted!", Toast.LENGTH_SHORT).show();
             imageList = GalleryPreview.list;
             SingleAlbumAdapter adapter = new SingleAlbumAdapter(AlbumActivity.this, imageList);
@@ -150,6 +170,13 @@ public class AlbumActivity extends AppCompatActivity {
                 isdateDecrease=0;
                 loadAlbumTask = new LoadAlbumImages();
                 loadAlbumTask.execute();
+                break;
+            }
+            case  R.id.guildeAlbum_menu :
+            {
+                Intent intent = new Intent(AlbumActivity.this, Guide.class);
+                intent.putExtra("choose","album" );
+                startActivity(intent);
                 break;
             }
 

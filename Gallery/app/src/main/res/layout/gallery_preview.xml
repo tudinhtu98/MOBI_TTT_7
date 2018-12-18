@@ -21,7 +21,6 @@
         app:itemTextColor="@color/bottomBar"
         app:menu="@menu/bottom_menu" />
 
-
     <RelativeLayout
         android:id="@+id/relative_container"
         android:layout_width="match_parent"
@@ -43,5 +42,49 @@
             app:zoomage_restrictBounds="false"
             app:zoomage_translatable="true"
             app:zoomage_zoomable="true" />
+
+
     </RelativeLayout>
+
+    <android.support.constraint.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="20dp"
+        android:layout_marginTop="470dp"
+        android:orientation="horizontal">
+
+        <ImageButton
+            android:id="@+id/leftRotationBt"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentStart="true"
+            android:layout_marginStart="145dp"
+            android:layout_weight="1"
+            android:background="@drawable/left"
+            android:backgroundTint="@color/cardview_light_background"
+            android:scaleType="centerInside"
+            android:visibility="invisible"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageButton
+            android:id="@+id/rightRotationBt"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:layout_alignBottom="@+id/leftRotationBt"
+            android:layout_alignEnd="@+id/GalleryPreviewImg"
+            android:layout_alignParentEnd="true"
+            android:layout_marginEnd="145dp"
+            android:layout_weight="1"
+            android:background="@drawable/right"
+            android:backgroundTint="@color/cardview_light_background"
+            android:scaleType="centerInside"
+            android:visibility="invisible"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toEndOf="@+id/leftRotationBt"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    </android.support.constraint.ConstraintLayout>
+
 </android.support.design.widget.CoordinatorLayout>

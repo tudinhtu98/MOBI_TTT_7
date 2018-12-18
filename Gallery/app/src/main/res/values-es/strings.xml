@@ -17,5 +17,19 @@
     <string name="setBothWallpaper">Establecer ambos</string>
     <string name="setLockScreen">Establecer como pantalla de bloqueo</string>
     <string name="setHomeScreen">Establecer como pantalla de inicio</string>
-
+    <string name="welcomeGuilde">Bienvenue sur VAlbum\nManuel utilisateur</string>
+    <string name="resetSticker">réinitialiser</string>
+    <string name="saveSticker">Sauver</string>
+    <string name="nextGuide">Ensuite</string>
+    <string name="PreviewGuide">Reviens</string>
+    <string name="gotItGuide">Fait</string>
+    <string name="errorSsticker">Ne peut pas ajouter plus Autocollant!</string>
+    <string name="addSticker">Ajouter un Autocollant</string>
+    <string name="Guide">Guider</string>
+    <string name="nameAlbum">Nom Álbum</string>
+    <string name="numberPhotos">Nombre de Photo</string>
+    <string name="touchGuide">Touchez pour ouvrir</string>
+    <string name="touchSlideShow">Touchez pour ouvrir le diaporama</string>
+    <string name="surfLeftOrRight">Balayez vers la gauche ou la droite pour transférer des images</string>
+    <string name="surfUpOrDown">Faites glisser votre doigt vers le haut ou le bas</string>
 </resources>
