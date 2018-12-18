@@ -33,5 +33,12 @@
     <string name="surfLeftOrRight">Balayez vers la gauche ou la droite pour transférer des images</string>
     <string name="surfUpOrDown">Faites glisser votre doigt vers le haut ou le bas</string>
     <string name="background">Interfaz</string>
+    <string name="theme">Temas</string>
+    <string name="light">Ligero</string>
+    <string name="dark">Oscuro</string>
+    <string name="auto">Auto</string>
+    <string name="ok">OK</string>
+    <string name="chooseTheme">Escoge un tema</string>
+    <string name="question">Es lo que realmente desea eliminarla?</string>
 
 </resources>

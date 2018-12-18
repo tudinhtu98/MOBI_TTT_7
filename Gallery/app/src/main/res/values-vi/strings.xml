@@ -38,4 +38,5 @@
     <string name="auto">Tự động</string>
     <string name="ok">OK</string>
     <string name="chooseTheme">Chọn chủ đề</string>
+    <string name="question">Bạn có thực sự muốn xóa nó?</string>
 </resources>

@@ -39,5 +39,6 @@
     <string name="auto">Auto</string>
     <string name="ok">OK</string>
     <string name="chooseTheme">Choose Theme</string>
+    <string name="question">Do you really want to delete it?</string>
 
 </resources>

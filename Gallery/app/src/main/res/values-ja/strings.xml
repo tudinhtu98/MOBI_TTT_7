@@ -33,5 +33,12 @@
     <string name="surfLeftOrRight">左または右にスワイプして画像を転送する</string>
     <string name="surfUpOrDown">上下にスワイプする</string>
     <string name="background">インタフェース</string>
+    <string name="theme">テーマ</string>
+    <string name="light">明るい</string>
+    <string name="dark">暗い</string>
+    <string name="auto">自動</string>
+    <string name="ok">OK</string>
+    <string name="chooseTheme">テーマを選択</string>
+    <string name="question">あなたは本当にそれを削除したいですか？</string>
 
 </resources>

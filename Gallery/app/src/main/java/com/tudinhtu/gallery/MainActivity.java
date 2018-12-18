@@ -83,7 +83,7 @@ public class MainActivity extends AppCompatActivity {
             ActivityCompat.requestPermissions(this, PERMISSIONS, REQUEST_PERMISSION_KEY);
         }
 
-        setBackground(theme); //auto
+        setBackground(theme); //auto is default
 
     }
 

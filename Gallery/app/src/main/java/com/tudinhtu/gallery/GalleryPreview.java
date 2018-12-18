@@ -28,10 +28,12 @@ import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 
+import android.widget.Button;
 import android.widget.ImageButton;
 
 import android.view.Window;
 import android.widget.ImageView;
+import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
 import com.bumptech.glide.Glide;
@@ -71,7 +73,6 @@ public class GalleryPreview extends AppCompatActivity {
     //private Bitmap mBitmap;
     Matrix matrix = new Matrix();
     float degrees = 0;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -484,26 +485,40 @@ public class GalleryPreview extends AppCompatActivity {
     }
 
     public void deleteImage() {
-        File file = new File(path);
-        file.delete();
+        final Dialog dialog_delete = new Dialog(this);
+        dialog_delete.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        dialog_delete.setContentView(R.layout.delete_menu);
+        dialog_delete.show();
+        Button buttonDelete = (Button) dialog_delete.findViewById(R.id.btnDelete);
 
-        sendBroadcast(new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE, Uri.fromFile(new File(path))));
+        buttonDelete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //delete image
+                File file = new File(path);
+                file.delete();
+
+                sendBroadcast(new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE, Uri.fromFile(new File(path))));
        /* ContentResolver contentResolver = getContentResolver();
         contentResolver.delete(MediaStore.Images.Media.EXTERNAL_CONTENT_URI,
                 MediaStore.Images.ImageColumns.DATA + "=?" , new String[]{ path });*/
-        list.remove(position);
-        if (file.exists()){
-            if (file.delete()){
-                Toast.makeText(GalleryPreview.this, "Deleted!", Toast.LENGTH_SHORT).show();
-            }
-            else {
-                Toast.makeText(GalleryPreview.this, "This image not deleted.", Toast.LENGTH_SHORT).show();
-            }
-        }
-        AlbumActivity.posDelete=position;
+                list.remove(position);
+                if (file.exists()){
+                    if (file.delete()){
+                        Toast.makeText(GalleryPreview.this, "Deleted!", Toast.LENGTH_SHORT).show();
+                    }
+                    else {
+                        Toast.makeText(GalleryPreview.this, "This image not deleted.", Toast.LENGTH_SHORT).show();
+                    }
+                }
+                AlbumActivity.posDelete=position;
 
-        AlbumActivity.isdelete=1;
-        finish();
+                AlbumActivity.isdelete=1;
+                finish();
+
+                dialog_delete.dismiss();
+            }
+        });
     }
 
     public void updateImageInfo(int positionTemp) {
