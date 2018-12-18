@@ -27,5 +27,5 @@
     </item>
     <item
         android:id="@+id/guildeAlbum_menu"
-        android:title="@string/delete" />
+        android:title="@string/Guide" />
 </menu>

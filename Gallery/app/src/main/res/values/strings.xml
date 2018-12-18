@@ -16,7 +16,7 @@
     <string name="setHomeScreen">Set as Home Screen</string>
     <string name="setLockScreen">Set as Lock screen</string>
     <string name="setBothWallpaper">Set both</string>
-<<<<<<< HEAD
+
     <string name="welcomeGuilde">Welcome to VAlbum\nApp Guide</string>
     <string name="resetSticker">Reset</string>
     <string name="saveSticker">Save</string>
@@ -32,7 +32,6 @@
     <string name="touchSlideShow">Touch to open SlideShow</string>
     <string name="surfLeftOrRight">Swipe left or right to transfer images</string>
     <string name="surfUpOrDown">Swipe up or down to back</string>
-=======
     <string name="background">Theme</string>
     <string name="theme">Themes</string>
     <string name="light">Light</string>
@@ -41,5 +40,4 @@
     <string name="ok">OK</string>
     <string name="chooseTheme">Choose Theme</string>
 
->>>>>>> 225025fcbde1a5aeecc6304ad86023236bbb26db
 </resources>

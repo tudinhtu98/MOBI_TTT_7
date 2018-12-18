@@ -4,10 +4,9 @@ import android.app.Dialog;
 import android.app.WallpaperManager;
 import android.content.Intent;
 import android.content.SharedPreferences;
-<<<<<<< HEAD
-=======
+
 import android.content.res.ColorStateList;
->>>>>>> 225025fcbde1a5aeecc6304ad86023236bbb26db
+
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
@@ -28,11 +27,10 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
-<<<<<<< HEAD
+
 import android.widget.ImageButton;
-=======
+
 import android.view.Window;
->>>>>>> 225025fcbde1a5aeecc6304ad86023236bbb26db
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -95,13 +93,9 @@ public class GalleryPreview extends AppCompatActivity {
 
         path = list.get(position).get(Function.KEY_PATH);
         GalleryPreviewImg = (ImageView) findViewById(R.id.GalleryPreviewImg);
-<<<<<<< HEAD
          imbRotationL=(ImageButton)findViewById(R.id.leftRotationBt);
         imbRotationR=(ImageButton) findViewById(R.id.rightRotationBt);
-        bottomNavigationView=(BottomNavigationView) findViewById(R.id.Bottombar);
-=======
         bottomNavigationView=(BottomNavigationView) findViewById(R.id.bottomBar);
->>>>>>> 225025fcbde1a5aeecc6304ad86023236bbb26db
         bottomNavigationView.setOnNavigationItemSelectedListener(
                 new BottomNavigationView.OnNavigationItemSelectedListener() {
                     @Override

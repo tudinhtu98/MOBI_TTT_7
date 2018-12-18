@@ -17,7 +17,6 @@
     <string name="setBothWallpaper">Establecer ambos</string>
     <string name="setLockScreen">Establecer como pantalla de bloqueo</string>
     <string name="setHomeScreen">Establecer como pantalla de inicio</string>
-<<<<<<< HEAD
     <string name="welcomeGuilde">Bienvenue sur VAlbum\nManuel utilisateur</string>
     <string name="resetSticker">réinitialiser</string>
     <string name="saveSticker">Sauver</string>
@@ -33,8 +32,6 @@
     <string name="touchSlideShow">Touchez pour ouvrir le diaporama</string>
     <string name="surfLeftOrRight">Balayez vers la gauche ou la droite pour transférer des images</string>
     <string name="surfUpOrDown">Faites glisser votre doigt vers le haut ou le bas</string>
-=======
     <string name="background">Interfaz</string>
 
->>>>>>> 225025fcbde1a5aeecc6304ad86023236bbb26db
 </resources>
