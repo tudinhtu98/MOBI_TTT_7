@@ -21,11 +21,32 @@
                 android:id="@+id/decending"
                 android:title="@string/sortByDateDesc" />
 
-
         </menu>
 
     </item>
     <item
         android:id="@+id/guildeAlbum_menu"
         android:title="@string/Guide" />
+    <item
+        android:id="@+id/columns"
+        android:title="Thay đổi số cột">
+        <menu>
+            <item
+                android:id="@+id/column1"
+                android:title="Chuyển thành 2 cột"/>
+            <item
+                android:id="@+id/column2"
+                android:title="Chuyển thành 3 cột"/>
+            <item
+                android:id="@+id/column3"
+                android:title="Chuyển thành 4 cột"/>
+            <item
+                android:id="@+id/column4"
+                android:title="Chuyển thành 5 cột"/>
+            <item
+                android:id="@+id/column5"
+                android:title="Chuyển thành 6 cột"/>
+        </menu>
+    </item>
+
 </menu>

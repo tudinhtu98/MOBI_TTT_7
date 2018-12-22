@@ -61,6 +61,7 @@ public class AlbumActivity extends AppCompatActivity {
         int theme = sharedPref.getInt("key", 1);
 
         galleryGridView = findViewById(R.id.galleryGridView);
+
         int iDisplayWidth = getResources().getDisplayMetrics().widthPixels ;
         Resources resources = getApplicationContext().getResources();
         DisplayMetrics metrics = resources.getDisplayMetrics();
@@ -202,6 +203,31 @@ public class AlbumActivity extends AppCompatActivity {
                 Intent intent = new Intent(AlbumActivity.this, Guide.class);
                 intent.putExtra("choose","album" );
                 startActivity(intent);
+                break;
+            }
+            case R.id.column1:
+            {
+                galleryGridView.setNumColumns(2);
+                break;
+            }
+            case R.id.column2:
+            {
+                galleryGridView.setNumColumns(3);
+                break;
+            }
+            case R.id.column3:
+            {
+                galleryGridView.setNumColumns(4);
+                break;
+            }
+            case R.id.column4:
+            {
+                galleryGridView.setNumColumns(5);
+                break;
+            }
+            case R.id.column5:
+            {
+                galleryGridView.setNumColumns(6);
                 break;
             }
 

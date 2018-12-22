@@ -14,9 +14,12 @@
 
     <item
         android:id="@+id/background"
-        android:title="@string/theme"
-        />
+        android:title="@string/theme" />
     <item
         android:id="@+id/Guide"
         android:title="@string/Guide" />
+
+
+
+
 </menu>
